@@ -35,7 +35,9 @@ This brings me to discuss the scope of the project. I understand the project mig
 Nikita Mokhov and I are extremely interested in blockchain technology and would really love to work on a Solidity project this semester. I think we're approaching an era where having hands-on experience developing blockchain technologies will be extremely valuable and we would love to utilize this course's framework as an opportunity to work on these types of projects. If this idea does not seem completely feasible, we would love to discuss other potential projects build around Solidity with you. Thank you so much for your time.
 
 
-# 2. At first, the team was assigned to work on an Ethereum-based decentralized marketplace. The team then decided that the Q/A platform would be a fun project to work on as it is very similar to the marketplace but has not really been done by other organizations (the marketplace is in development in many cryptocurrencies, i.e. PIRL). Professor Bloomberg has also expressed he likes the idea behind the QA platform more than the marketplace platform.
+# 2. How we came to work on this project...
+
+At first, the team was assigned to work on an Ethereum-based decentralized marketplace. The team then decided that the Q/A platform would be a fun project to work on as it is very similar to the marketplace but has not really been done by other organizations (the marketplace is in development in many cryptocurrencies, i.e. PIRL). Professor Bloomberg has also expressed he likes the idea behind the QA platform more than the marketplace platform.
 
 Whoever proposed the idea, feel free to edit this file to reflect how you came up with it.
 
