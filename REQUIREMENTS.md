@@ -1,5 +1,29 @@
-# Initial Project Requirements
+# Project Requirements
 
+## End-user observation
+<br />
+**Persona 1**
+Name: Nur al-Jimenez 
+Location: Massachusetts Institute of Technology, Massachusetts, USA
+Occupation: Computer Science Student
+Age: 22 years old
+Gender: Male
+    I am a computer science student at MIT working on a new app idea in which we use machine learning to recommend quiet study spots on campus. I need to help with implementing a mathematical algorithm for our program, however, online Q&A platforms like Chegg require me to pay into the platform, and forums like Stack Overflow will point me in the right direction as opposed to actually solving my problem for me. I do not have the time to figure out the work for myself, and need to pay someone to implement the algorithm for me in Java, while I work on the front-end aspects of my app.  
+    I need a platform where there is incentive for competition among people who answer my question so that I can guarantee the answers I am getting are of high quality. Time is also an important issue, so the ability to have a time limit on my bounty is important, and I would like an escrow system in order to protect my funds from scammers. I need to be able to deny and accept answers, and would like the ability to see a small preview of the answers before I choose to escrow some of my funds. Also important is an ability to allow any answers I accept to be made public, thus encouraging people with better answers to offer their solutions instead. A reputation system would also be nice, thus, before I escrow some of my funds I know whether or not the user is somebody I can trust. 
+    As I am using a decentralized platform, I do have a degree of technical competency. After all, it is not exactly a straightforward process to access DApps through a common browser and syncing to the Ethereum network. However, a straight forward user interface which makes it simple to link to my Ethereum wallet is crucial to the appeal of this platform. Another reason I am choosing to use a decentralized Q&A network is it protects my sensitive information and my data, essentially allowing me to place bounties on problems I need help with safely and securely.
+
+<br />
+**Persona 2**
+Name: Nikita Chao
+Location: Hyderabad, India
+Occupation: Math teacher/Freelance Coder
+Age: 26 Years Old
+Gender: Male
+    I am a math teacher in India who also enjoys coding. As a way to make money on the side, I like to answer American college students’ questions for money. On platforms such as Chegg and Quora, I only get set fees determined by a third party, as opposed to getting a full bounty for my work. Hence, I would like a decentralized Q&A platform, to cut out a middle man and ensure I deal directly with the party asking the question. Another issue is that Chegg and Quora require third party approval before you can begin answering questions, thus blocking out people such as myself who are self-taught experts in certain subjects.  
+    For this platform I need the ability to know that the user will not just screenshot my answers and then decline my request for his funds, thus I need a method of guaranteeing payment. Therefore, an escrow system is crucial for me participating in this platform, as it means that I will receive payment for my work. I would also like a reputation system so that as I become a more active member of the community I become more trusted and thus it is easier for my answers to be selected first and I am first to be escrowed the funds. 
+    As someone who is working from outside of the US, it is also very important for me to be able to have an easy way to transact value globally with one standard agreed currency, with minimal transaction fees. This is why I need a platform built on Ethereum, as Ethereum can be sent around the world with little transaction fees and has a global, agreed upon, value. Also, having a decentralized platform allows me to protect my data and personal information. A simple and efficient front-end is also crucial, so I can spend more time answering questions rather than navigating the website, thus saving time, and making more money. 
+
+<br />
 ## Use Cases
 <br />
 **Use Case 1**
