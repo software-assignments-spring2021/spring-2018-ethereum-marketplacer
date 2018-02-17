@@ -1,7 +1,8 @@
 ##Initial Project Requirements
 
-####Use Cases
+####Use Cases####
 <br />
+##Use Case 1##
 Title: Post Question <br />
 Actor: Asker <br />
 
@@ -25,6 +26,7 @@ Scenario:
 
  
  <br /> <br /> <br />
+ ##Use Case 2##
 Title: Browse Questions <br />
 Actor: Browser
 
@@ -38,6 +40,7 @@ Scenario:
 
  
  <br /> <br /> <br />
+##Use Case 3##
 Title: Answer Question <br />
 Actor: Answerer
 
