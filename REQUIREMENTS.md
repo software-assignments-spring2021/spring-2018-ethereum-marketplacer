@@ -1,28 +1,55 @@
 ##Initial Project Requirements
 
 ####Use Cases
-Title: Ask Question <br />
-Actor: College Student <br /> <br />
-Scenario: Student asks a question on our platform. Student sets
- a bounty to be awarded to the best answer. Our system collects 
- the bounty and holds it temporarily. Other users provide 
- answers to the question. Our system blurs out details about the 
- answer and leaves the overview to be clear. Student picks answer 
- based on the overview. The bounty is awarded to the best answer. 
- The question and answers become open to all users. Anyone can view 
- or add an answer.
+Title: Post Question
+Actor: Asker
+
+Scenario: 
+1. Asker enters platform
+2. Asker creates question posting, includes:
+    - Descriptive Title
+    - Text Description
+    - File Upload (Optional)
+    - Subject-Tag
+    - Time constraint (Optional)
+    - Bounty (Optional)
+        - If true, asker sends amount to a staked address
+3. Asker posts posting
+4. Asker is notified when receives potential answer (blurred portion)
+5. Asker reviews submission
+    - If accepts, bounty is released from staked address to Answerer’s address and response is posted publicly to thread
+   	- If declines, Answerer’s response is discarded
+    - Either way, asker will be directed to leave a review with a 1-5 star rating system and a 140 character comment
+6. If time constraint reached and no accepted responses, bounty is released back to Asker’s wallet
+
  
  <br /> <br /> <br />
- Title: Browse Question <br />
- Actor: College Student <br /> <br />
- Scenario: Student looks up a question by keywords. Our system shows 
- past questions related to the keywords. Student browses the answers.
+Title: Browse Questions
+Actor: Browser
+
+Scenario:
+1. Browser enters platform
+2. Browser views posts of questions in a forum-style layout (similar to reddit)
+3. Browser has options to browse by specific categories: by Subject-tags, by bounty-only
+4. Browser can sort postings by highest bounty, highest time priority, most recent, most discussed
+5. Browser then can click on specific postings to look at answers if any
+6. Browser then can choose to submit an answer, where he then becomes an Answerer actor
+
  
  <br /> <br /> <br />
- Title: Answer Question <br />
- Actor: Industry Professional <br /><br />
- Scenario: An industry professional sees a new question posted related 
- to his field. He sees the bounty and decides to answer the question. 
- He drafts an answer to the question and chooses which part 
- to be blurred. The answer gets picked. A bounty is awarded to his account. 
- His answer becomes viewable to all users.
+Title: Answer Question 
+Actor: Answerer (taker?)
+
+Scenario: 
+1. User clicks reply/submit answer
+2. Browser actor becomes answerer when he, her, they decides to reply to a question
+3. User is directed to submit_response page, includes:
+    - Quote of question the answerer is responding to
+    - Text box for response
+    - File Upload for response
+    - Address for bounty to be transferred to
+4. Then user submits response and waits for asker to accept or decline, then when notified: 
+    - If accepts, bounty is released from staked address to Answerer’s address provided above
+    - If declines, then Answerer has option to revise his answer and submit again
+
+
