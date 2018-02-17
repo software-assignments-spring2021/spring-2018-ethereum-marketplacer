@@ -48,6 +48,7 @@ As someone who is working from outside of the US, it is also very important for 
 
 
 <br />
+
 ## Use Cases
 <br />
 **Use Case 1**
