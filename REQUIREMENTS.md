@@ -1,8 +1,8 @@
-## Initial Project Requirements
+# Initial Project Requirements
 
-#### Use Cases
+### Use Cases
 <br />
-## Use Case 1##
+#### Use Case 1
 <br />
 Title: Post Question <br />
 Actor: Asker <br />
@@ -25,10 +25,11 @@ Scenario:
     - Either way, asker will be directed to leave a review with a 1-5 star rating system and a 140 character comment
 6. If time constraint reached and no accepted responses, bounty is released back to Asker’s wallet
 
- 
- <br /> <br /> <br />
-## Use Case 2
-<br />
+<br/>
+<br/>
+<br/>
+#### Use Case 2
+<br/>
 Title: Browse Questions <br />
 Actor: Browser
 
@@ -40,9 +41,10 @@ Scenario:
 5. Browser then can click on specific postings to look at answers if any
 6. Browser then can choose to submit an answer, where he then becomes an Answerer actor
 
- 
- <br /> <br /> <br />
-## Use Case 3
+<br />
+<br />
+<br />
+#### Use Case 3
 <br />
 Title: Answer Question <br />
 Actor: Answerer
