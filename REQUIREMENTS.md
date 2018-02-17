@@ -1,8 +1,9 @@
 ##Initial Project Requirements
 
 ####Use Cases
-Title: Post Question
-Actor: Asker
+<br />
+Title: Post Question <br />
+Actor: Asker <br />
 
 Scenario: 
 1. Asker enters platform
@@ -24,7 +25,7 @@ Scenario:
 
  
  <br /> <br /> <br />
-Title: Browse Questions
+Title: Browse Questions <br />
 Actor: Browser
 
 Scenario:
@@ -37,12 +38,12 @@ Scenario:
 
  
  <br /> <br /> <br />
-Title: Answer Question 
-Actor: Answerer (taker?)
+Title: Answer Question <br />
+Actor: Answerer
 
 Scenario: 
 1. User clicks reply/submit answer
-2. Browser actor becomes answerer when he, her, they decides to reply to a question
+2. Browser actor becomes answerer when user decides to reply to a question
 3. User is directed to submit_response page, includes:
     - Quote of question the answerer is responding to
     - Text box for response
