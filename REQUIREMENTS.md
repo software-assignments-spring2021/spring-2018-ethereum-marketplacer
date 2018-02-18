@@ -1,4 +1,4 @@
-# Project Requirements
+﻿# Project Requirements
 
 ## End-user observation
 <br />
@@ -109,5 +109,14 @@ Scenario:
 4. Then user submits response and waits for asker to accept or decline, then when notified: 
     - If accepts, bounty is released from staked address to Answerer’s address provided above
     - If declines, then Answerer has option to revise his answer and submit again
+
+
+<br />
+<br />
+<br />
+**Use Case 1 UML**
+<br />
+![Alt text](C:\Users\nikit\Software Engineering\Specs-Personas-Reqs\Use Case UMLs\Use Case #1?raw=true "Use Case #1")
+
 
 
