@@ -1,4 +1,4 @@
-# ethereum-QA
+# Question&Answer on Ethereum Platform
 
 # 1. Initial project proposal
 
