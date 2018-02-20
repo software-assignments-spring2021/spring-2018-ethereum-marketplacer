@@ -1,10 +1,20 @@
 ##CONTRIBUTING.md
 
+###General
+1. Be professional. We are in a student setting but practicing real life work.
+2. Be respectful. Disagreements are bound to happen; try to find proactive solutions that are the ultimate best
+for the product being built.
+3. Be open to the ideas of others. (even if they are not a group member)
+4. Be pragmatic.
+5. Be ethical. For more info, search for the ACM/IEEE Code of Ethics.
+
 ####Setup
 1. Clone the repository to your local workspace. <br/> <br/>
 2. Make your own branch and work on your branch.
 
 ####Coding Style
+1. Comment as much as possible (and as much detail as possible)
+
 ####Commits and Pull Requests
 Keep the commit log as healthy as the code. It is one of the first places new contributors will look at the project. <br/>
 
