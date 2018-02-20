@@ -116,20 +116,20 @@ Scenario:
 <br />
 **Post Question UML**
 <br />
-![alt text](https://github.com/nyu-software-engineering/ethereum-marketplacer/blob/Nikita_Branch/image/Use%20Case%20%231.jpg)
 
+![image](https://github.com/nyu-software-engineering/ethereum-marketplacer/blob/Nikita_Branch/image/Use%20Case%20%231.jpg?raw=true)
 
 <br />
 <br />
 <br />
 **Answer Question UML**
 <br />
-![alt text](https://github.com/nyu-software-engineering/ethereum-marketplacer/blob/Nikita_Branch/image/answerer_use_case.jpg)
+![image](https://github.com/nyu-software-engineering/ethereum-marketplacer/blob/Nikita_Branch/image/answerer_use_case.jpg?raw=true)
 
 <br />
 <br />
 <br />
 **Domain Model UML**
 <br />
-![alt text](https://github.com/nyu-software-engineering/ethereum-marketplacer/blob/Nikita_Branch/image/Domain.jpg)
+![image](https://github.com/nyu-software-engineering/ethereum-marketplacer/blob/Nikita_Branch/image/Domain.jpg?raw=true)
 
