@@ -1,35 +1,19 @@
 # Question & Answer on Ethereum Platform
 
-# 1. Initial project proposal
+# Initial project proposal
 
-###Decentralized Question Answerer
+### Decentralized Question Answerer
 We are proposing a decentralized question-and-answer platform built on the Ethereum Blockchain.
 
 This platform would allow users to post individual questions or problems with a "bounty" attached. The bounty would be an amount of ether a user would be willing to pay for the question to be answered. Then another individual would provide an answer and receive the bounty. 
 
 In traditional applications (Chegg, CourseHero), users usually must subscribe to a monthly fee in order to access the answers to problem sets and textbooks. This platform would allow individuals to set a price they are willing to pay for a specific question to be answered and offer an incentive for others to answer the question. Additionally, as this platform would be decentralized, all the personal data of the user would not be 'owned' by a third-party, rather it would be stored on the Ethereum Blockchain.
 
-We believe this platform would be popular among college students. In my experience, it is extremely common for students to seek out and pay for resources such as textbook solutions, answers to problem sets, or even specific problems from their courses. we think specifically, this platform could aid in time-sensitive situation; for instance "I have one last really hard Calc problem that we can't figure out due tomorrow morning, I'm literally willing to pay someone $20 for the answer." Then they post the question on the platform with a 12-hour expiration period and hope that someone will answer it. 
+We believe this platform would be popular among college students. In our experience, it is extremely common for students to seek out and pay for resources such as textbook solutions, answers to problem sets, or even specific problems from their courses. we think specifically, this platform could aid in time-sensitive situation; for instance "I have one last really hard Calc problem that we can't figure out due tomorrow morning, I'm literally willing to pay someone $20 for the answer." Then they post the question on the platform with a 12-hour expiration period and hope that someone will answer it. 
 
 From an end-user's perspective, he will enter this website after he has connected to the Ethereum network. The main page will display the most time-sensitive/highest bounty questions. Or he can choose specific categories/sub-categories: Finance, Science, Math.... --> Calculus, Discrete Mathematics, Algebra..., where he can browse posted questions in each category. Once he chooses a question, he can submit an answer and if his answer is Accepted by the poster, he will receive the bounty, where the amount will be sent directly to his synced Ethereum wallet.
 
-As a user posting questions, he can create a new post, select the category, then post text/pdf/picture of his question and attach a bounty and a time-limit to his question. He will be notified if he receives an answer, and he may either Accept or Reject it.
-
-There are two possible issues with this project:
-1) As a professor, these types of platform could be seen as extremely academically disingenuous. But we want to do this project as more of a proof-of-concept and to gain exposure for programming in Solidity and working in the Ethereum environment. 
-
-2) If you do allow this idea, we still have not addressed a huge potential problem of this platform: ensuring quality in the answers. 
-
-To walk through an example: 
-Questioner asks "What is 2+2? I'm willing to pay 1 ETH for the answer".
-
-What is stopping the answerer from posting "5" and running off with the payout?
-This solution is fairly simple. The Questioner has an allocated time to review the answer. If he Accepts, the bounty will be released (best-case scenario). If he Rejects, the answer is discarded. If he does nothing and the allocated time ends, the bounty is released.
-
-But this leads to the problem: What's stopping the Questioner from simply reviewing the answer, copying it down, and then rejecting it, keeping the bounty for himself?
-
-We haven't quite figured this part out. We were thinking about some sort of a reputation system, but then that adds a whole layer of complexity to the platform. Another possible solution would be to disclaim to users that placing a bounty may not ensure an answer of the highest quality, which I believe could be fair seeing as the user is paying on his own accord. This would eliminate the problem discussed above. 
-
+As a user posting questions, he can create a new post, select the category, then post text/pdf/picture of his question and attach a bounty and a time-limit to his question. He will be notified if he receives an answer, and he may either Accept or Reject it. And once accepted, the bounty will be released to the answerer. 
 
 # 2. How we came to work on this project...
 
@@ -39,7 +23,7 @@ Whoever proposed the idea, feel free to edit this file to reflect how you came u
 
 
 # 3. We will follow the branching workflow - as suggested by Professor Bloomberg. 
-- If you want to contribute to the project, please see CONTRIBUTING.md.
+- If you would like to contribute to the project, please see CONTRIBUTING.md.
 
 
 # 4. Important links:
