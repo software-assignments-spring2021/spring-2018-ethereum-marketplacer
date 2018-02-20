@@ -114,9 +114,22 @@ Scenario:
 <br />
 <br />
 <br />
-**Use Case 1 UML**
+**Post Question UML**
 <br />
-![Alt text](C:\Users\nikit\Software Engineering\Specs-Personas-Reqs\Use Case UMLs\Use Case #1?raw=true "Use Case #1")
+![alt text](https://github.com/nyu-software-engineering/ethereum-marketplacer/blob/Nikita_Branch/image/Use%20Case%20%231.jpg)
 
 
+<br />
+<br />
+<br />
+**Answer Question UML**
+<br />
+![alt text](https://github.com/nyu-software-engineering/ethereum-marketplacer/blob/Nikita_Branch/image/answerer_use_case.jpg)
+
+<br />
+<br />
+<br />
+**Domain Model UML**
+<br />
+![alt text](https://github.com/nyu-software-engineering/ethereum-marketplacer/blob/Nikita_Branch/image/Domain.jpg)
 
