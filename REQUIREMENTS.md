@@ -1,4 +1,4 @@
-# Project Requirements
+﻿# Project Requirements
 
 ## End-user observation
 <br />
@@ -110,4 +110,28 @@ Scenario:
     - If accepts, bounty is released from staked address to Answerer’s address provided above
     - If declines, then Answerer has option to revise his answer and submit again
 
+
+<br />
+<br />
+<br />
+**Post Question UML**
+<br />
+
+![image](https://github.com/nyu-software-engineering/ethereum-marketplacer/blob/Nikita_Branch/image/Use%20Case%20%231.jpg?raw=true)
+
+<br />
+<br />
+<br />
+**Answer Question UML**
+<br />
+
+![image](https://github.com/nyu-software-engineering/ethereum-marketplacer/blob/Nikita_Branch/image/answerer_use_case.jpg?raw=true)
+
+<br />
+<br />
+<br />
+**Domain Model UML**
+<br />
+
+![image](https://github.com/nyu-software-engineering/ethereum-marketplacer/blob/Nikita_Branch/image/Domain.jpg?raw=true)
 
