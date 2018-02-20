@@ -2,7 +2,7 @@
 
 # Initial project proposal
 
-### Decentralized Question Answerer
+## Decentralized Question Answerer
 We are proposing a decentralized question-and-answer platform built on the Ethereum Blockchain.
 
 This platform would allow users to post individual questions or problems with a "bounty" attached. The bounty would be an amount of ether a user would be willing to pay for the question to be answered. Then another individual would provide an answer and receive the bounty. 
