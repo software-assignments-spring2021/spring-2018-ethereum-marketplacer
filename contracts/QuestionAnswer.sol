@@ -47,6 +47,7 @@ contract QuestionAnswer {
     }
 
     // *************** PUBLIC GETTERS ***************
+    // these all take in the key as a parameter
 
     function getPostCount() public view returns (uint) {
         return keys.length;
