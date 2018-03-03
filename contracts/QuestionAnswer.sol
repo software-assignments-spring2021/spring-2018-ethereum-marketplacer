@@ -1,4 +1,4 @@
-pragma solidity ^0.4.4;
+pragma solidity ^0.4.18;
 
 contract QuestionAnswer {
 
@@ -65,5 +65,7 @@ contract QuestionAnswer {
         return QuestionMapping[i].askerAddress;
     }
 
-
+    function getAskedQuestionByIndex(uint i) public view returns (string) {
+        return QuestionMapping[keys[i]].questionContent;
+    }
 }
