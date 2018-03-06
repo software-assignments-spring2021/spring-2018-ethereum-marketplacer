@@ -1,4 +1,5 @@
 #!/bin/sh
+npm --version
 DIR=build
 if [ -d "$DIR" ]; then
     printf '%s\n' "Removing Lock ($DIR)"
