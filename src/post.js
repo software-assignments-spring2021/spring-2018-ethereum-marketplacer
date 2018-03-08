@@ -67,15 +67,19 @@ class Post extends Component {
             }
             account = accounts[0];
             console.log(account);
-            QuestionAnswer.at('0xbaaa2a3237035a2c7fa2a33c76b44a8c6fe18e87').then((contract) => {
-                console.log(contract.address);
+
+            // why use .at(0xADDRESS) rather than deployed()?
+            // 0x345ca3e014aaf5dca488057592ee47305d9b3e10
+
+            QuestionAnswer.deployed().then((contract) => {
+                console.log("contract.address: " + contract.address);
                 contractInstance = contract;
                 this.setState({address: contractInstance.address});
                 // Get the number of posts
-                contractInstance.getPostCount({from: account}).then((data) => {
+                contractInstance.getQuestionCount({from: account}).then((data) => {
                     console.log(data.toNumber());
                     this.setState({count: data.toNumber()});
-                })
+                });
                 return;
             });
         })
@@ -103,15 +107,16 @@ class Post extends Component {
                         <div>
                             <button onClick={() => {
                                 let ipfsContent = this.refs.ipfsContent.value;
-                                console.log(ipfsContent);
+                                console.log("ipfsContent:" + ipfsContent);
                                 savePostOnIpfs(ipfsContent).then((hash) => {
-                                    console.log('The question is now on IPFS')
+                                    console.log('The question is now on IPFS');
                                     console.log(hash);
                                     this.setState({strHash: hash});
-                                    contractInstance.createPosting(this.state.strHash, {from: account}).then(() => {
+                                    console.log("strHash: " + this.state.strHash);
+                                    contractInstance.submitQuestion(this.state.strHash, {from: account}).then(() => {
                                         console.log('The question is now on the blockchain');
                                         // Get the number of posts
-                                        contractInstance.getPostCount({from: account}).then((data) => {
+                                        contractInstance.getQuestionCount({from: account}).then((data) => {
                                             console.log('Update the count');
                                             console.log(data.toNumber());
                                             this.setState({count: data.toNumber()});
