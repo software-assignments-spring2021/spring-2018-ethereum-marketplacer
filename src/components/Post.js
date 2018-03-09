@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
-import QuestionAnswerContract from '../build/contracts/QuestionAnswer.json'
-import getWeb3 from './utils/getWeb3'
+import QuestionAnswerContract from '../../build/contracts/QuestionAnswer.json'
+import getWeb3 from '../utils/getWeb3'
 
 const ipfsAPI = require('ipfs-api');
 const ipfs = ipfsAPI({host: 'localhost', port: '5001', protocol: 'http'});
 
-const contract = require('truffle-contract')
-const QuestionAnswer = contract(QuestionAnswerContract)
+const contract = require('truffle-contract');
+const QuestionAnswer = contract(QuestionAnswerContract);
 let account;
 
 // Declaring this for later so we can chain functions on StringStorage.
@@ -15,18 +15,18 @@ let savePostOnIpfs = (blob) => {
     return new Promise(function(resolve, reject) {
         const descBuffer = Buffer.from(blob, 'utf-8');
         ipfs.add(descBuffer).then((response) => {
-            console.log(response)
+            // console.log("savePostOnIpfs() response: " + response[0].toString());
             resolve(response[0].hash);
         }).catch((err) => {
-            console.error(err)
+            console.error(err);
             reject(err);
         })
     })
-}
+};
 
 class Post extends Component {
     constructor(props) {
-        super(props)
+        super(props);
 
         this.state = {
             count: null,
@@ -38,6 +38,9 @@ class Post extends Component {
         }
     }
 
+    // I think we can move this to App.js
+    // check out how he sets it up: https://github.com/didil/stone-dapp/blob/master/src/App.js
+    // if you can get other testnet support running that would be great (rinkeby, ropsten)
     componentWillMount() {
 
         ipfs.swarm.peers(function(err, res) {
@@ -50,7 +53,7 @@ class Post extends Component {
         });
 
         getWeb3.then(results => {
-            this.setState({web3: results.web3})
+            this.setState({web3: results.web3});
 
             // Instantiate contract once web3 provided.
             this.instantiateContract()
@@ -59,6 +62,8 @@ class Post extends Component {
         })
     }
 
+
+    // I think we can move this to App.js
     instantiateContract = () => {
         QuestionAnswer.setProvider(this.state.web3.currentProvider);
         this.state.web3.eth.getAccounts((error, accounts) => {
@@ -67,9 +72,6 @@ class Post extends Component {
             }
             account = accounts[0];
             console.log(account);
-
-            // why use .at(0xADDRESS) rather than deployed()?
-            // 0x345ca3e014aaf5dca488057592ee47305d9b3e10
 
             QuestionAnswer.deployed().then((contract) => {
                 console.log("contract.address: " + contract.address);
@@ -84,7 +86,18 @@ class Post extends Component {
             });
         })
 
-    }
+    };
+
+
+    showQuestionSubmitted(IPFSHash){
+
+        // at the minimum, can you console.log the questionContent here?
+        // I just dont understand how to interact with the IPFS database
+        // I assume you use the hash passed in but idk how to actually get it lol
+
+        };
+
+
     render() {
         return (<div className="App">
             {/*{*/}
@@ -114,14 +127,17 @@ class Post extends Component {
                                     this.setState({strHash: hash});
                                     console.log("strHash: " + this.state.strHash);
                                     contractInstance.submitQuestion(this.state.strHash, {from: account}).then(() => {
-                                        console.log('The question is now on the blockchain');
+                                        console.log("The question is now on the blockchain");
                                         // Get the number of posts
                                         contractInstance.getQuestionCount({from: account}).then((data) => {
-                                            console.log('Update the count');
-                                            console.log(data.toNumber());
+                                            console.log("count updated to: " + data.toNumber());
                                             this.setState({count: data.toNumber()});
-                                        })
-                                    })
+                                        });
+
+                                    });
+
+                                    this.showQuestionSubmitted(this.state.strHash);
+
                                 });
                             }}>Submit Question</button>
                         </div>
