@@ -26,20 +26,20 @@ contract QuestionAnswer {
         uint bountyAmount;
         string questionContent;
         uint[] answerKeys; // list of answer keys
-        mapping (uint => Answer) AnswerMapping; // questionKey => struct Answer
+        mapping(uint => Answer) AnswerMapping; // questionKey => struct Answer
     }
 
     // list of question keys so we can enumerate them
     uint[] questionKeys;
 
     // key => value: IPFSHash => struct Question
-    mapping (uint => Question) public QuestionMapping;
+    mapping(uint => Question) public QuestionMapping;
 
     // this is the function to be called when a user submits a question
     function submitQuestion(string question) payable public returns (bool success) {
 
         // require the address balance be greater than the amount they are trying to send
-        require (msg.sender.balance > msg.value);
+        require(msg.sender.balance > msg.value);
 
         // for now, just using timestamp as QuestionMapping key
         uint key = block.timestamp;
@@ -82,7 +82,7 @@ contract QuestionAnswer {
     function AcceptAnswer(uint questionKey, uint answerKey) public returns (bool success) {
 
         // user calling this function is indeed the original asker
-        if (msg.sender ==  QuestionMapping[questionKey].askerAddress) {
+        if (msg.sender == QuestionMapping[questionKey].askerAddress) {
             QuestionMapping[questionKey].AnswerMapping[answerKey].isAcceptedAnswer = true;
 
             address answererAddress = QuestionMapping[questionKey].AnswerMapping[answerKey].answererAddress;
