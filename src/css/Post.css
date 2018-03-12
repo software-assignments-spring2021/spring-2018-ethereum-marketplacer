@@ -1,0 +1,45 @@
+.Post {
+    text-align: center;
+}
+
+.Post-form-container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+
+}
+
+.Post-form-container input {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.Post-form-container button {
+    width: 50%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    box-sizing: border-box;
+    /*border: 2px solid #4CAF50;*/
+    border: 2px solid #a6a6a6;
+    border-radius: 4px;
+}
+.Post-form-container button:hover {
+    width: 50%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    box-sizing: border-box;
+    /*border: 2px solid #4CAF50;*/
+    background-color: #a6a6a6;
+}
+
