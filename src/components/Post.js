@@ -95,11 +95,13 @@ class Post extends Component {
         const e = event.nativeEvent;
         const questionContent = e.target[0].value;
         const additionalDetails = e.target[1].value;
-        const bountyAmount = e.target[1].value;
+        const bountyAmount = e.target[2].value;
         console.log("questionContent: " + questionContent);
         console.log("additionalDetails: " + additionalDetails);
         console.log("bountyAmount: " + bountyAmount);
 
+        // check bounty amount valid
+        // check that bountyAmount <= amount in MetaMask wallet
 
         savePostOnIpfs(questionContent).then((hash) => {
             console.log('The question is now on IPFS');
@@ -117,7 +119,7 @@ class Post extends Component {
         });
 
 
-    }
+    };
 
     renderPostQuestionForm() {
         return (
@@ -126,12 +128,13 @@ class Post extends Component {
 
                 <form className="Post-form" onSubmit={this.handleSubmit}>
                     <label> Title </label>
-                    <input ref="ipfsContent" type="text" title="title"
+                    <input type="text" title="title"
                            placeholder="What's your question? Be specific. "/><br/>
 
                     <label> Text (Optional) </label>
-                    <input type="text" title="content"
-                           placeholder="Provide all the necessary details for someone to answer."/><br/>
+                    <textarea type="text"
+                              title="content"
+                              placeholder="Provide all the necessary details for someone to answer."></textarea><br/>
 
                     <label> Bounty (optional) </label>
                     <input type="text" title="bountyAmount"

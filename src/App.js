@@ -8,13 +8,12 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            route: null,
+            // route: null,
             showPostComponent: false,
             showQuestionList: false
         };
         this.togglePostComponent = this.togglePostComponent.bind(this);
         this.toggleQuestionListComponent = this.toggleQuestionListComponent.bind(this);
-
     }
 
     componentDidMount() {
@@ -25,16 +24,16 @@ class App extends Component {
 
     togglePostComponent() {
         {
-            this.setState({showPostComponent: true, showQuestionList: false})
+            this.setState({showPostComponent: true, showQuestionList: false});
         }
     }
 
     toggleQuestionListComponent() {
         {
             this.setState({showPostComponent: false, showQuestionList: true})
+
         }
     }
-
 
     render() {
         return (
