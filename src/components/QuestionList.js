@@ -22,8 +22,8 @@ class QuestionList extends Component {
 
         return (
         <div className="RecentSubmissions">
-            <h1>A list of questions will be rendered here</h1>
-                Total question count: {this.state.count}
+            <h1>The list of questions will be rendered here</h1>
+                {/*Total question count: {this.state.count}*/}
 
             </div>
         );
