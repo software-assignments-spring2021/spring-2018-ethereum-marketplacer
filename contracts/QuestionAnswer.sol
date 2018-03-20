@@ -1,6 +1,25 @@
 pragma solidity ^0.4.4;
 
 contract QuestionAnswer {
+    
+    /////////asker
+    // asker is protagonist (provides question)
+    address private asker;
+    
+    ////////solver
+    // solver is antagonist (provides answer)
+    address private solver; //how to address fact that there are more than one?
+    
+    //counter for answers submissions
+    //used in getReplyCount()
+    uint256 answersSubmitted = 0;
+    
+    ///////constructor
+    //
+    function QuestionAnswer() public {
+        asker = msg.sender; //this will give cleaner code
+    //    solver = how can we get asker address here?
+    }
 
     // **** use events to pass along return values from contract to frontend ****
     // stores all the data contained when user creates a posting
@@ -65,6 +84,9 @@ contract QuestionAnswer {
     function submitAnswer(uint questionKey, string answer) public returns (bool success) {
         // answerPost key (will eventually be IPFSHash as key)
         uint key = block.timestamp;
+        
+        //increase counter of answersSubmitted
+        answersSubmitted++;
 
         // add key to answerKeys[] array, which is stored in the specfic Question struct it is replying to
         QuestionMapping[questionKey].answerKeys.push(key);
@@ -119,8 +141,8 @@ contract QuestionAnswer {
     }
 
     // returns total number of submitted answers for a specific question
-    function getReplyCount(uint questionKey) public view returns (uint) {
-        return QuestionMapping[questionKey].answerKeys.length;
+    function getReplyCount() public view returns (uint) {
+        return answersSubmitted;
 
     }
 
