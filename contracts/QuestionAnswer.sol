@@ -2,18 +2,46 @@ pragma solidity ^0.4.4;
 
 contract QuestionAnswer {
 
+    function bytes32ToString(bytes32 x) public pure returns (string) {
+        bytes memory bytesString = new bytes(32);
+        uint charCount = 0;
+        for (uint j = 0; j < 32; j++) {
+            byte char = byte(bytes32(uint(x) * 2 ** (8 * j)));
+            if (char != 0) {
+                bytesString[charCount] = char;
+                charCount++;
+            }
+        }
+        bytes memory bytesStringTrimmed = new bytes(charCount);
+        for (j = 0; j < charCount; j++) {
+            bytesStringTrimmed[j] = bytesString[j];
+        }
+        return string(bytesStringTrimmed);
+    }
+
+    function stringToBytes32(string memory source) public pure returns (bytes32 result) {
+        bytes memory tempEmptyStringTest = bytes(source);
+        if (tempEmptyStringTest.length == 0) {
+            return 0x0;
+        }
+
+        assembly {
+            result := mload(add(source, 32))
+        }
+    }
+
     // **** use events to pass along return values from contract to frontend ****
     // stores all the data contained when user creates a posting
     event SubmitQuestion(address indexed askerAddress, uint timestamp, uint bountyAmount, string questionContent);
 
     // stores all data contained when user submits an answer
-    event SubmitAnswer(uint indexed questionKey, address answererAddress, uint timestamp, string answerContent);
+    event SubmitAnswer(string questionKey, address answererAddress, uint timestamp, string answerContent);
 
     // stores key to question, address of withdrawer and time stamp
-    event Withdrawal(uint questionKey, address withdrawererAddress, uint timestamp);
+    event Withdrawal(string questionKey, address withdrawererAddress, uint timestamp);
 
     struct Answer {
-        uint questionKey; // key to the question answerer is replying to
+        string questionKey; // key to the question answerer is replying to
         address answererAddress;
         uint timestamp;
         string answerContent;
@@ -25,15 +53,15 @@ contract QuestionAnswer {
         uint timestamp;
         uint bountyAmount;
         string questionContent;
-        uint[] answerKeys; // list of answer keys
-        mapping(uint => Answer) AnswerMapping; // questionKey => struct Answer
+        string[] answerKeys; // list of answer keys
+        mapping(bytes32 => Answer) AnswerMapping; // questionKey => struct Answer
     }
 
     // list of question keys so we can enumerate them
-    uint[] questionKeys;
+    bytes32[] public questionKeys;
 
     // key => value: IPFSHash => struct Question
-    mapping(uint => Question) public QuestionMapping;
+    mapping(bytes32 => Question) public QuestionMapping;
 
     // this is the function to be called when a user submits a question
     function submitQuestion(string question) payable public returns (bool success) {
@@ -41,20 +69,16 @@ contract QuestionAnswer {
         // require the address balance be greater than the amount they are trying to send
         require(msg.sender.balance > msg.value);
 
-        // for now, just using timestamp as QuestionMapping key
-        uint key = block.timestamp;
-
-        // add key to questionKeys[] array
-        questionKeys.push(key);
-
         // setting value as: struct Question
         // must set each attribute individually since cannot pass null in for last two attributes...
         // QuestionMapping[key] = Question(msg.sender, block.timestamp, msg.value, question, null, null);
-        QuestionMapping[key].askerAddress = msg.sender;
-        QuestionMapping[key].timestamp = block.timestamp;
-        QuestionMapping[key].bountyAmount = msg.value;
-        QuestionMapping[key].questionContent = question;
-
+        bytes32 questionBytes = stringToBytes32(question);
+        // add key to questionKeys[] array
+        questionKeys.push(questionBytes);
+        QuestionMapping[questionBytes].askerAddress = msg.sender;
+        QuestionMapping[questionBytes].timestamp = block.timestamp;
+        QuestionMapping[questionBytes].bountyAmount = msg.value;
+        QuestionMapping[questionBytes].questionContent = question;
 
         // emits event in the log
         SubmitQuestion(msg.sender, block.timestamp, msg.value, question);
@@ -62,15 +86,14 @@ contract QuestionAnswer {
         return true;
     }
 
-    function submitAnswer(uint questionKey, string answer) public returns (bool success) {
-        // answerPost key (will eventually be IPFSHash as key)
-        uint key = block.timestamp;
+    function submitAnswer(string questionKey, string answer) public returns (bool success) {
 
+        bytes32 key = stringToBytes32(questionKey);
         // add key to answerKeys[] array, which is stored in the specfic Question struct it is replying to
-        QuestionMapping[questionKey].answerKeys.push(key);
+        QuestionMapping[key].answerKeys.push(questionKey);
 
         // setting value as: struct Answer
-        QuestionMapping[questionKey].AnswerMapping[key] = Answer(questionKey, msg.sender, block.timestamp, answer, false);
+        QuestionMapping[key].AnswerMapping[key] = Answer(questionKey, msg.sender, block.timestamp, answer, false);
 
         // emits event in the log
         SubmitAnswer(questionKey, msg.sender, block.timestamp, answer);
@@ -79,14 +102,15 @@ contract QuestionAnswer {
     }
 
     // question asker accepts answer; staked bounty is released to answerer
-    function AcceptAnswer(uint questionKey, uint answerKey) public returns (bool success) {
-
+    function AcceptAnswer(string questionKey, string answerKey) public returns (bool success) {
+        bytes32 qkey = stringToBytes32(questionKey);
+        bytes32 akey = stringToBytes32(answerKey);
         // user calling this function is indeed the original asker
-        if (msg.sender == QuestionMapping[questionKey].askerAddress) {
-            QuestionMapping[questionKey].AnswerMapping[answerKey].isAcceptedAnswer = true;
+        if (msg.sender == QuestionMapping[qkey].askerAddress) {
+            QuestionMapping[qkey].AnswerMapping[akey].isAcceptedAnswer = true;
 
-            address answererAddress = QuestionMapping[questionKey].AnswerMapping[answerKey].answererAddress;
-            uint withdrawalAmount = QuestionMapping[questionKey].bountyAmount;
+            address answererAddress = QuestionMapping[qkey].AnswerMapping[akey].answererAddress;
+            uint withdrawalAmount = QuestionMapping[qkey].bountyAmount;
 
             // release bounty to answerer
             answererAddress.transfer(withdrawalAmount);
@@ -99,10 +123,11 @@ contract QuestionAnswer {
     }
 
     // passes in key to identify the bountyAmount to withdraw
-    function withdraw(uint questionKey) public returns (bool success) {
+    function withdraw(string questionKey) public returns (bool success) {
+        bytes32 qkey = stringToBytes32(questionKey);
 
         // amount to withdraw is the bountyAmount associated with key
-        uint withdrawalAmount = QuestionMapping[questionKey].bountyAmount;
+        uint withdrawalAmount = QuestionMapping[qkey].bountyAmount;
 
         // transfer withdrawalAmount to the msg.sender AKA the person who is calling withdraw()
         msg.sender.transfer(withdrawalAmount);
@@ -119,8 +144,9 @@ contract QuestionAnswer {
     }
 
     // returns total number of submitted answers for a specific question
-    function getReplyCount(uint questionKey) public view returns (uint) {
-        return QuestionMapping[questionKey].answerKeys.length;
+    function getReplyCount(string questionKey) public view returns (uint) {
+        bytes32 qkey = stringToBytes32(questionKey);
+        return QuestionMapping[qkey].answerKeys.length;
 
     }
 

@@ -10,12 +10,12 @@ class QuestionList extends Component {
 
     // this is not called yet
     // not sure if we want to getQuestionCount by user; need to getTotalQuestions instead
-    getQuestionCount() {
-            this.props.contractInstance.getQuestionCount({from: this.props.userAccount}).then((data) => {
-                console.log(data.toNumber());
-                this.setState({count: data.toNumber()});
-            });
-    }
+    // getQuestionCount() {
+    //         this.props.contractInstance.getQuestionCount({from: this.props.userAccount}).then((data) => {
+    //             console.log(data.toNumber());
+    //             this.setState({count: data.toNumber()});
+    //         });
+    // }
 
     render() {
         // {this.getQuestionCount()}

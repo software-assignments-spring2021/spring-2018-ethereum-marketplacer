@@ -36,8 +36,6 @@ class App extends Component {
 
         getWeb3.then(results => {
             this.setState({web3: results.web3});
-            console.log("setState web3: " + this.state.web3);
-
             // Instantiate contract once web3 provided.
             this.instantiateContract()
         }).catch(() => {
@@ -52,22 +50,26 @@ class App extends Component {
         QuestionAnswer.setProvider(this.state.web3.currentProvider);
         this.state.web3.eth.getAccounts((error, accounts) => {
             if (error != null) {
-                console.log(error);
+                console.log("ERR: " + error);
             }
-            console.log(accounts[0]);
+            console.log("Account 0: " + accounts[0]);
             this.setState({account: accounts[0]});
 
             QuestionAnswer.deployed().then((contract) => {
                 console.log("contract.address: " + contract.address);
                 contractInstance = contract;
-                this.setState({contractInstance});
                 this.setState({address: contractInstance.address});
                 // // Get the number of posts
                 // contractInstance.getQuestionCount({from: account}).then((data) => {
                 //     console.log(data.toNumber());
                 //     this.setState({count: data.toNumber()});
                 // });
-            });
+                return contractInstance.getQuestionCount.call();
+            }).then((data) => {
+                console.log("count init to: " + data.toNumber());
+            }).catch((err) => {
+                console.log("ERR: " + err);
+            })
         })
 
     };
@@ -102,7 +104,7 @@ class App extends Component {
                     {this.state.showPostComponent
                         ? <Post web3={this.state.web3}
                                 ipfs={this.state.ipfs}
-                                contractInstance={this.state.contractInstance}
+                                contractInstance={contractInstance}
                                 userAccount={this.state.account}
                         />
                         : <QuestionList web3={this.state.web3}
