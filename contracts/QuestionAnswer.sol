@@ -2,7 +2,7 @@ pragma solidity ^0.4.4;
 
 contract QuestionAnswer {
 
-    function bytes32ToString(bytes32 x) constant returns (string) {
+    function bytes32ToString(bytes32 x) public pure returns (string) {
         bytes memory bytesString = new bytes(32);
         uint charCount = 0;
         for (uint j = 0; j < 32; j++) {
@@ -19,7 +19,7 @@ contract QuestionAnswer {
         return string(bytesStringTrimmed);
     }
 
-    function stringToBytes32(string memory source) returns (bytes32 result) {
+    function stringToBytes32(string memory source) public pure returns (bytes32 result) {
         bytes memory tempEmptyStringTest = bytes(source);
         if (tempEmptyStringTest.length == 0) {
             return 0x0;
@@ -58,7 +58,7 @@ contract QuestionAnswer {
     }
 
     // list of question keys so we can enumerate them
-    bytes32[] questionKeys;
+    bytes32[] public questionKeys;
 
     // key => value: IPFSHash => struct Question
     mapping(bytes32 => Question) public QuestionMapping;
@@ -79,7 +79,6 @@ contract QuestionAnswer {
         QuestionMapping[questionBytes].timestamp = block.timestamp;
         QuestionMapping[questionBytes].bountyAmount = msg.value;
         QuestionMapping[questionBytes].questionContent = question;
-
 
         // emits event in the log
         SubmitQuestion(msg.sender, block.timestamp, msg.value, question);

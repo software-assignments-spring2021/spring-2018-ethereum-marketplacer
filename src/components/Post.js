@@ -48,20 +48,21 @@ class Post extends Component {
 
         // check bounty amount valid
         // check that bountyAmount <= amount in MetaMask wallet
-
         savePostOnIpfs(questionContent, ipfsLocal).then((hash) => {
             console.log('The question is now on IPFS');
             console.log(hash);
             this.setState({strHash: hash});
             console.log("strHash: " + this.state.strHash);
-            this.props.contractInstance.submitQuestion(this.state.strHash, {from: this.props.userAccount}).then(() => {
-                console.log("The question is now on the blockchain");
-                // Get the number of posts... not working, 3/16
-                this.props.contractInstance.getQuestionCount({from: this.props.userAccount}).then((data) => {
-                    console.log("count updated to: " + data.toNumber());
-                    this.setState({count: data.toNumber()});
-                });
-            });
+            return this.props.contractInstance.submitQuestion(this.state.strHash, {from: this.props.userAccount});
+        }).then((result) => {
+            console.log("Return result is (this should be some metadata of the tx): ", result);
+            // Get the number of posts
+            return this.props.contractInstance.getQuestionCount.call();
+        }).then((data) => {
+            console.log("count updated to: " + data.toNumber());
+            this.setState({count: data.toNumber()});
+        }).catch((err) => {
+            console.log("ERROR: " + err);
         });
     };
 
