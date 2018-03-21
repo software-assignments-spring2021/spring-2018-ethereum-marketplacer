@@ -1,7 +1,5 @@
 #!/bin/bash
 
-gnome-terminal
-
 truffle compile
 truffle migrate
 
