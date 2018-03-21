@@ -8,4 +8,4 @@ if [ -d "$DIR" ]; then
 fi
 npm install
 truffle compile
-truffle migrate
+truffle migrate --reset
