@@ -1,6 +1,6 @@
 #!/bin/bash
 
 truffle compile
-truffle migrate
+truffle migrate --reset
 
 npm start
