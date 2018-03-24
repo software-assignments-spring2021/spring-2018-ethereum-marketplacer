@@ -87,7 +87,6 @@ class App extends Component {
     toggleQuestionListComponent() {
         this.setState({showPostComponent: false, showQuestionList: true});
 
-
     }
 
     render() {
@@ -101,15 +100,16 @@ class App extends Component {
                 </header>
 
                 <div className="Main-panel">
-                    {this.state.showPostComponent
-                        ? <Post web3={this.state.web3}
+
+                    {this.state.showQuestionList
+                        ? <QuestionList web3={this.state.web3}
                                 ipfs={this.state.ipfs}
                                 contractInstance={contractInstance}
                                 userAccount={this.state.account}
                         />
-                        : <QuestionList web3={this.state.web3}
+                        : <Post web3={this.state.web3}
                                         ipfs={this.state.ipfs}
-                                        contractInstance={this.state.contractInstance}
+                                        contractInstance={contractInstance}
                                         userAccount={this.state.account}
 
                         />}
