@@ -1,32 +1,63 @@
 import React, {Component} from 'react'
 
-
 class QuestionList extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            count: null,
+            blockChainHash: null,
+            address: null,
+            strHash: null,
+            isWriteSuccess: false,
+            questions: []
+        }
     }
 
+    componentDidMount() {
+        this.props.contractInstance.getQuestionCount.call().then((count) => {
 
-    // this is not called yet
-    // not sure if we want to getQuestionCount by user; need to getTotalQuestions instead
-    // getQuestionCount() {
-    //         this.props.contractInstance.getQuestionCount({from: this.props.userAccount}).then((data) => {
-    //             console.log(data.toNumber());
-    //             this.setState({count: data.toNumber()});
-    //         });
-    // }
+            for (let i = 0; i<count; i++) {
+
+                // iterate through questionList and get the hash of each question
+                this.props.contractInstance.getQuestionByIndex.call(i).then((hash) => {
+                    return hash;
+                }).then((hash) => {
+
+                    //retrieve question content from ipfs
+                    this.props.ipfs.cat(hash, (err, file) => {
+                        if (err) {
+                            throw err;
+                        }
+                        let questionContent = file.toString('utf8');
+
+                        this.props.contractInstance.getQuestionByHash.call(hash).then((questionInfo) => {
+                            let timestamp = questionInfo[0];
+                            let bounty = questionInfo[1];
+                            let ipfsHash = questionInfo[2]; // Same as hash
+                            let questions = this.state.questions.slice();
+                            questions.push({id: ipfsHash, timestamp: timestamp, bounty: bounty, questionContent: questionContent});
+                            this.setState({ questions: questions });
+                        });
+                    });
+                });
+            }
+        })
+    }
 
     render() {
-        // {this.getQuestionCount()}
-
+        let questions = this.state.questions;
+        questions = questions.map((question) =>
+            <li key={question.id}>Time: {question.timestamp.toNumber()} - Bounty: {question.bounty.toNumber()} - Content: {question.questionContent}</li>
+        );
         return (
-        <div className="RecentSubmissions">
-            <h1>The list of questions will be rendered here</h1>
-                {/*Total question count: {this.state.count}*/}
-
+            <div className="RecentSubmissions">
+                <h1>The list of questions will be rendered here</h1>
+                <ul>{questions}</ul>
             </div>
         );
+
+
     }
 
 
