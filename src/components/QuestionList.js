@@ -29,14 +29,17 @@ class QuestionList extends Component {
                         if (err) {
                             throw err;
                         }
-                        let questionContent = file.toString('utf8');
+                        let questionJson = file.toString('utf8');
+                        let questionObject = JSON.parse(questionJson);
+                        
 
                         this.props.contractInstance.getQuestionByHash.call(hash).then((questionInfo) => {
                             let timestamp = questionInfo[0];
                             let bounty = questionInfo[1];
                             let ipfsHash = questionInfo[2]; // Same as hash
                             let questions = this.state.questions.slice();
-                            questions.push({id: ipfsHash, timestamp: timestamp, bounty: bounty, questionContent: questionContent});
+                            questions.push({id: ipfsHash, timestamp: timestamp, bounty: bounty,
+                                questionTitle: questionObject.questionTitle, questionDescription: questionObject.questionDescription});
                             this.setState({ questions: questions });
                         });
                     });
@@ -48,7 +51,8 @@ class QuestionList extends Component {
     render() {
         let questions = this.state.questions;
         questions = questions.map((question) =>
-            <li key={question.id}>Time: {question.timestamp.toNumber()} - Bounty: {question.bounty.toNumber()} - Content: {question.questionContent}</li>
+            <li key={question.id}>Time: {question.timestamp.toNumber()} - Bounty: {question.bounty.toNumber()}
+            - Title: {question.questionTitle} - Description: {question.questionDescription}</li>
         );
         return (
             <div className="RecentSubmissions">
