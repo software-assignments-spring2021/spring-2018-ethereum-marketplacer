@@ -53,7 +53,7 @@ class Post extends Component {
             console.log(hash);
             this.setState({strHash: hash});
             console.log("strHash: " + this.state.strHash);
-            return this.props.contractInstance.submitQuestion(this.state.strHash, {from: this.props.userAccount});
+            return this.props.contractInstance.submitQuestion(this.state.strHash, {from: this.props.userAccount, value: this.props.web3.toWei(bountyAmount, "ether")});
         }).then((result) => {
             console.log("Return result is (this should be some metadata of the tx): ", result);
             // Get the number of posts
