@@ -1,4 +1,9 @@
 import React, {Component} from 'react'
+import '../css/QuestionList.css';
+
+import SingleQuestion from '../components/SingleQuestion.js'
+
+
 
 class QuestionList extends Component {
 
@@ -10,14 +15,18 @@ class QuestionList extends Component {
             address: null,
             strHash: null,
             isWriteSuccess: false,
-            questions: []
-        }
+            questions: [],
+            showSingleQuestion: false
+        };
+
+        this.toggleSingleQuestionComponent = this.toggleSingleQuestionComponent.bind(this);
+
     }
 
     componentDidMount() {
         this.props.contractInstance.getQuestionCount.call().then((count) => {
 
-            for (let i = 0; i<count; i++) {
+            for (let i = 0; i < count; i++) {
 
                 // iterate through questionList and get the hash of each question
                 this.props.contractInstance.getQuestionByIndex.call(i).then((hash) => {
@@ -36,8 +45,13 @@ class QuestionList extends Component {
                             let bounty = questionInfo[1];
                             let ipfsHash = questionInfo[2]; // Same as hash
                             let questions = this.state.questions.slice();
-                            questions.push({id: ipfsHash, timestamp: timestamp, bounty: bounty, questionContent: questionContent});
-                            this.setState({ questions: questions });
+                            questions.push({
+                                id: ipfsHash,
+                                timestamp: timestamp,
+                                bounty: bounty,
+                                questionContent: questionContent
+                            });
+                            this.setState({questions: questions});
                         });
                     });
                 });
@@ -45,16 +59,54 @@ class QuestionList extends Component {
         })
     }
 
-    render() {
+    renderQuestionList() {
         let questions = this.state.questions;
         questions = questions.map((question) =>
-            <li key={question.id}>Time: {question.timestamp.toNumber()} - Bounty: {question.bounty.toNumber()} - Content: {question.questionContent}</li>
-        );
-        return (
-            <div className="RecentSubmissions">
-                <h1>The list of questions will be rendered here</h1>
-                <ul>{questions}</ul>
+            <div className="Individual-Question-container" key={question.id}>
+                <div onClick={this.toggleSingleQuestionComponent} className="Individual-Question-Title">
+                    {question.questionContent}
+                </div>
+                <div className="Individual-Question-Bounty">
+                    Bounty: {question.bounty.toNumber()}
+                </div>
+                <div className="Individual-Question-Time">
+                    Time Submitted: {question.timestamp.toNumber()}
+                </div>
+
             </div>
+        );
+
+        return (
+            <div className="QuestionList-container">
+                <div>{questions}</div>
+            </div>
+        );
+
+    }
+
+    toggleSingleQuestionComponent() {
+        alert("toggleSingleQuestionComponent triggered " +
+            this.state.showSingleQuestion);
+        if (this.state.showSingleQuestion) {
+            this.setState({showSingleQuestion: false});
+
+        }
+
+        else {
+            this.setState({showSingleQuestion: true});
+
+        }
+    }
+
+
+    render() {
+
+        return (
+            <div className="QuestionList">
+                {this.state.showSingleQuestion ? <SingleQuestion/> : this.renderQuestionList()}
+
+            </div>
+
         );
 
 

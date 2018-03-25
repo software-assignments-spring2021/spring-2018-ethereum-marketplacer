@@ -1,0 +1,47 @@
+.QuestionList {
+    text-align: center;
+}
+
+.QuestionList-container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 10px;
+    /*max-width: 600px;*/
+    width: 95%;
+    margin: 0 auto;
+    position: relative;
+
+}
+
+.Individual-Question-container {
+    color: slategray;
+    border-style: solid;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+}
+
+.Individual-Question-Title {
+    font-size: 20px;
+    text-align: left;
+    width: 80%;
+
+}
+
+.Individual-Question-Time {
+    text-align: left;
+    /*display: inline;*/
+    align: left;
+
+}
+
+.Individual-Question-Bounty {
+    /*text-align: right;*/
+    position: absolute;
+    /*align: right;*/
+    width: 50%;
+    float: right;
+    padding-left: 600px;
+
+}
