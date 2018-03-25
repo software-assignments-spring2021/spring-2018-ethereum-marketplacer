@@ -38,7 +38,8 @@ class QuestionList extends Component {
                         if (err) {
                             throw err;
                         }
-                        let questionContent = file.toString('utf8');
+                        let myQuestionJson = file.toString('utf8');
+                        let myQuestionObj = JSON.parse(myQuestionJson);
 
                         this.props.contractInstance.getQuestionByHash.call(hash).then((questionInfo) => {
                             let timestamp = questionInfo[0];
@@ -49,7 +50,8 @@ class QuestionList extends Component {
                                 id: ipfsHash,
                                 timestamp: timestamp,
                                 bounty: bounty,
-                                questionContent: questionContent
+                                questionTitle: myQuestionObj.questionTitle,
+                                questionDescription: myQuestionObj.questionDescription
                             });
                             this.setState({questions: questions});
                         });
@@ -64,7 +66,10 @@ class QuestionList extends Component {
         questions = questions.map((question) =>
             <div className="Individual-Question-container" key={question.id}>
                 <div onClick={this.toggleSingleQuestionComponent} className="Individual-Question-Title">
-                    {question.questionContent}
+                    {question.questionTitle}
+                </div>
+                <div className="Individual-Question-Description">
+                    Description: {question.questionDescription}
                 </div>
                 <div className="Individual-Question-Bounty">
                     Bounty: {question.bounty.toNumber()}

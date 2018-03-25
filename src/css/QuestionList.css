@@ -29,6 +29,13 @@
 
 }
 
+.Individual-Question-Description {
+    font-size: 20px;
+    text-align: left;
+    width: 80%;
+
+}
+
 .Individual-Question-Time {
     text-align: left;
     /*display: inline;*/
