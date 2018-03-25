@@ -1,10 +1,6 @@
 import React, {Component} from 'react'
 import '../css/QuestionList.css';
 
-import SingleQuestion from '../components/SingleQuestion.js'
-
-
-
 class QuestionList extends Component {
 
     constructor(props) {
@@ -18,8 +14,6 @@ class QuestionList extends Component {
             questions: [],
             showSingleQuestion: false
         };
-
-        this.toggleSingleQuestionComponent = this.toggleSingleQuestionComponent.bind(this);
 
     }
 
@@ -62,11 +56,16 @@ class QuestionList extends Component {
     }
 
     renderQuestionList() {
+        // questions is an array of questions
         let questions = this.state.questions;
+        // for each question, do this markup
         questions = questions.map((question) =>
             <div className="Individual-Question-container" key={question.id}>
-                <div onClick={this.toggleSingleQuestionComponent} className="Individual-Question-Title">
-                    {question.questionTitle}
+                <div onClick={() => this.toggleSingleQuestionComponent(question.id, question.questionTitle,
+                    question.questionDescription,
+                    question.bounty.toNumber(),
+                    question.timestamp.toNumber()
+                )} className="Individual-Question-Title"> {question.questionTitle}
                 </div>
                 <div className="Individual-Question-Description">
                     Description: {question.questionDescription}
@@ -89,26 +88,17 @@ class QuestionList extends Component {
 
     }
 
-    toggleSingleQuestionComponent() {
-        alert("toggleSingleQuestionComponent triggered " +
-            this.state.showSingleQuestion);
-        if (this.state.showSingleQuestion) {
-            this.setState({showSingleQuestion: false});
+    toggleSingleQuestionComponent = (questionID, questionTitle, questionDesc, questionBounty, questionTimestamp) => {
+        this.props.toggleSingleQuestion(questionID, questionTitle, questionDesc, questionBounty, questionTimestamp);
 
-        }
-
-        else {
-            this.setState({showSingleQuestion: true});
-
-        }
-    }
+    };
 
 
     render() {
 
         return (
             <div className="QuestionList">
-                {this.state.showSingleQuestion ? <SingleQuestion/> : this.renderQuestionList()}
+                {this.renderQuestionList()}
 
             </div>
 

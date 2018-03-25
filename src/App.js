@@ -5,6 +5,7 @@ import './css/App.css'
 
 import getWeb3 from './utils/getWeb3'
 import QuestionAnswerContract from '../build/contracts/QuestionAnswer.json'
+import SingleQuestion from "./components/SingleQuestion";
 
 const contract = require('truffle-contract');
 const QuestionAnswer = contract(QuestionAnswerContract);
@@ -18,6 +19,7 @@ let contractInstance;
 
 
 class App extends Component {
+    // alert(questionID + " " + questionTitle + " " + questionDesc + " " + questionBounty + " " + questionTimestamp);
 
     constructor(props) {
         super(props);
@@ -25,7 +27,14 @@ class App extends Component {
         this.state = {
             showPostComponent: false,
             showQuestionList: false,
-            getWeb3: null
+            showSingleQuestion: false,
+            getWeb3: null,
+            questionID: null,
+            questionTitle: null,
+            questionDesc: null,
+            questionBounty: null,
+            questionTimestamp: null
+
         };
         this.togglePostComponent = this.togglePostComponent.bind(this);
         this.toggleQuestionListComponent = this.toggleQuestionListComponent.bind(this);
@@ -80,14 +89,24 @@ class App extends Component {
     }
 
     togglePostComponent() {
-        this.setState({showPostComponent: true, showQuestionList: false});
+        this.setState({showPostComponent: true, showQuestionList: false, showSingleQuestion: false});
 
     }
 
     toggleQuestionListComponent() {
-        this.setState({showPostComponent: false, showQuestionList: true});
-
+        this.setState({showPostComponent: false, showQuestionList: true, showSingleQuestion: false});
     }
+
+    toggleSingleQuestionComponent = (questionID, questionTitle, questionDesc, questionBounty, questionTimestamp) => {
+        this.setState({showPostComponent: false, showQuestionList: false, showSingleQuestion: true});
+        this.setState({
+            questionID: questionID,
+            questionTitle: questionTitle,
+            questionDesc: questionDesc,
+            questionBounty: questionBounty,
+            questionTimestamp: questionTimestamp
+        })
+    };
 
     render() {
         return (
@@ -103,16 +122,25 @@ class App extends Component {
 
                     {this.state.showQuestionList
                         ? <QuestionList web3={this.state.web3}
-                                ipfs={this.state.ipfs}
-                                contractInstance={contractInstance}
-                                userAccount={this.state.account}
-                        />
-                        : <Post web3={this.state.web3}
                                         ipfs={this.state.ipfs}
                                         contractInstance={contractInstance}
                                         userAccount={this.state.account}
+                                        toggleSingleQuestion={this.toggleSingleQuestionComponent}
+                        />
+                        : this.state.showSingleQuestion
+                            ? <SingleQuestion
+                                questionID={this.state.questionID}
+                                questionTitle={this.state.questionTitle}
+                                questionDesc={this.state.questionDesc}
+                                questionBounty={this.state.questionBounty}
+                                questionTimestamp={this.state.questionTimestamp}
+                            />
+                            : <Post web3={this.state.web3}
+                                    ipfs={this.state.ipfs}
+                                    contractInstance={contractInstance}
+                                    userAccount={this.state.account}
 
-                        />}
+                            />}
 
                 </div>
             </div>
