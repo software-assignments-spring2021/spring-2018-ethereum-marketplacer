@@ -33,15 +33,12 @@ class Post extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
         const e = event.nativeEvent;
-        const questionTitle = e.target[0].value;
-        const questionDescription = e.target[1].value;
+        const questionContent = e.target[0].value;
+        const additionalDetails = e.target[1].value;
         const bountyAmount = e.target[2].value;
-        console.log("questionTitle: " + questionTitle);
-        console.log("questionDescription: " + questionDescription);
+        console.log("questionContent: " + questionContent);
+        console.log("additionalDetails: " + additionalDetails);
         console.log("bountyAmount: " + bountyAmount);
-
-        let myQuestion = {"questionTitle":questionTitle, "questionDescription":questionDescription};
-        let myQuestionJson = JSON.stringify(myQuestion);
 
         console.log("props.ipfs: " + this.props.ipfs);
         console.log(this.props.web3);
@@ -51,7 +48,7 @@ class Post extends Component {
 
         // check bounty amount valid
         // check that bountyAmount <= amount in MetaMask wallet
-        savePostOnIpfs(myQuestionJson, ipfsLocal).then((hash) => {
+        savePostOnIpfs(questionContent, ipfsLocal).then((hash) => {
             console.log('The question is now on IPFS');
             console.log(hash);
             this.setState({strHash: hash});
