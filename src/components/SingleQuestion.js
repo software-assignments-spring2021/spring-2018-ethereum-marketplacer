@@ -49,8 +49,6 @@ class SingleQuestion extends Component {
 
                 </form>
 
-                {/*<hr/>*/}
-
                 <div className="Replies-Container">
                     {this.renderAllReplies()}
                 </div>
