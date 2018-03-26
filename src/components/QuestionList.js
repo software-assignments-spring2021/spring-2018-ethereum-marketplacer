@@ -67,17 +67,18 @@ class QuestionList extends Component {
                     question.timestamp.toNumber()
                 )} className="Individual-Question-Title"> {question.questionTitle}
                 </div>
-                <div className="Individual-Question-Description">
-                    Description: {question.questionDescription}
-                </div>
+                {/*<div className="Individual-Question-Description">*/}
+                    {/*Description: {question.questionDescription}*/}
+                {/*</div>*/}
                 <div className="Individual-Question-Bounty">
                     Bounty: {question.bounty.toNumber()}
                 </div>
                 <div className="Individual-Question-Time">
                     Time Submitted: {question.timestamp.toNumber()}
                 </div>
-
+                <hr/>
             </div>
+
         );
 
         return (

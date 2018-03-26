@@ -1,24 +1,30 @@
 .QuestionList {
     text-align: center;
+
 }
 
 .QuestionList-container {
+    /*float: left;*/
+    position: static;
+    display: block;
     border-radius: 5px;
-    background-color: #f2f2f2;
-    padding: 10px;
+    background-color: #ececec;
+    /*padding: 10px;*/
+    /*margin-left: 50px;*/
+    /*padding-left: 50px;*/
+    padding-top: 20px;
     /*max-width: 600px;*/
-    width: 95%;
+    width: 85%;
     margin: 0 auto;
-    position: relative;
 
 }
 
 .Individual-Question-container {
     color: slategray;
-    border-style: solid;
-    padding: 10px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    /*border-style: solid;*/
+    padding-bottom: 5px;
+    /*margin-top: 10px;*/
+    /*margin-bottom: 10px;*/
 
 }
 
@@ -39,7 +45,7 @@
 .Individual-Question-Time {
     text-align: left;
     /*display: inline;*/
-    align: left;
+    /*align: left;*/
 
 }
 
