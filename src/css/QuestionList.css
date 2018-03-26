@@ -50,11 +50,11 @@
 }
 
 .Individual-Question-Bounty {
-    /*text-align: right;*/
+    text-align: right;
     position: absolute;
     /*align: right;*/
     width: 50%;
     float: right;
-    padding-left: 600px;
+    padding-left: 425px;
 
 }
