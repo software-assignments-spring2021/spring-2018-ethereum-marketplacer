@@ -1,6 +1,8 @@
 # Question & Answer on Ethereum Platform
 
-# Initial project proposal
+# Q&A
+
+# Initial Project Proposal
 
 ## Decentralized Question Answerer
 We are proposing a decentralized question-and-answer platform built on the Ethereum Blockchain.
@@ -19,10 +21,9 @@ As a user posting questions, he can create a new post, select the category, then
 
 At first, the team was assigned to work on an Ethereum-based decentralized marketplace. The team then decided that the Q/A platform would be a fun project to work on as it is very similar to the marketplace but has not really been done by other organizations (the marketplace is in development in many cryptocurrencies, i.e. PIRL). Professor Bloomberg has also expressed he likes the idea behind the QA platform more than the marketplace platform.
 
-Whoever proposed the idea, feel free to edit this file to reflect how you came up with it.
 
-
-# 3. We will follow the branching workflow - as suggested by Professor Bloomberg. 
+# 3. We will follow the branching workflow.
+- As suggested by Professor Bloomberg. 
 - If you would like to contribute to the project, please see CONTRIBUTING.md.
 
 
