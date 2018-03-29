@@ -28,7 +28,9 @@ class Post extends Component {
             strHash: null,
             isWriteSuccess: false,
             bountyInput: "",
-            invalidBountyInput: false
+            invalidBountyInput: false,
+            titleInput:"",
+            invalidTitleInput:false
         }
     }
 
@@ -86,12 +88,29 @@ class Post extends Component {
         }
     }
 
+    checkValidTitle(value){
+        if (value==="") {
+            this.setState({invalidTitleInput: true});
+        }
+        else{
+            this.setState({invalidTitleInput:false});
+           }
+    }
+
+
     handleUserInput = (e) => {
         const value = e.target.value;
+        if (e.target.title==="bountyAmount"){
         this.setState({bountyInput: value},
             () => {
                 this.checkValidBounty(value)
             });
+        }
+        else{
+        this.setState({titleInput: value},
+            () => {
+                this.checkValidTitle(value)});
+        }
     };
 
 
@@ -102,9 +121,12 @@ class Post extends Component {
 
                 <form className="Post-form" onSubmit={this.handleSubmit}>
                     <label> Title </label>
-                    <input type="text" title="title"
-                           placeholder="What's your question? Be specific. "/><br/>
-
+                    <input val={this.state.titleInput}
+                           onChange={this.handleUserInput} type="text" title="Title"
+                           placeholder="What's your question? Be specific. "/>
+                    {this.state.invalidTitleInput ?
+                        <p className="invalidInputMessage">Must have title</p> :
+                            null}
                     <label> Text (Optional) </label>
                     <textarea type="text"
                               title="content"
@@ -120,12 +142,12 @@ class Post extends Component {
                         null}
                     <br/>
 
-                    {this.state.invalidBountyInput
+                    {this.state.invalidBountyInput || this.state.invalidTitleInput || this.state.titleInput===""
                         ? <button disabled={true}>Submit Question</button>
                         : <button>Submit Question</button>}
 
                     {/*<button>Submit Question</button>*/}
-                </form>
+               </form>
             </div>
         )
     }

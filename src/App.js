@@ -66,7 +66,8 @@ class App extends Component {
             }
             console.log("Account 0: " + accounts[0]);
             this.setState({account: accounts[0]});
-
+//            var balance=web3.eth.getBalance(accounts[0]);
+//            balance=web3.toDecimal(balance);
             QuestionAnswer.deployed().then((contract) => {
                 console.log("contract.address: " + contract.address);
                 contractInstance = contract;
