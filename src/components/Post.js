@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import '../css/Post.css';
 
-let savePostOnIpfs = (blob, ipfs) => {
+export const savePostOnIpfs = (blob, ipfs) => {
     return new Promise(function (resolve, reject) {
         const descBuffer = Buffer.from(blob, 'utf-8');
         ipfs.add(descBuffer).then((response) => {
@@ -26,7 +26,9 @@ class Post extends Component {
             web3: null,
             address: null,
             strHash: null,
-            isWriteSuccess: false
+            isWriteSuccess: false,
+            bountyInput: "",
+            invalidBountyInput: false
         }
     }
 
@@ -56,7 +58,10 @@ class Post extends Component {
             console.log(hash);
             this.setState({strHash: hash});
             console.log("strHash: " + this.state.strHash);
-            return this.props.contractInstance.submitQuestion(this.state.strHash, {from: this.props.userAccount, value: this.props.web3.toWei(bountyAmount, "ether")});
+            return this.props.contractInstance.submitQuestion(this.state.strHash, {
+                from: this.props.userAccount,
+                value: this.props.web3.toWei(bountyAmount, "ether")
+            });
         }).then((result) => {
             console.log("Return result is (this should be some metadata of the tx): ", result);
             // Get the number of posts
@@ -64,12 +69,30 @@ class Post extends Component {
         }).then((data) => {
             console.log("count updated to: " + data.toNumber());
             this.setState({count: data.toNumber()});
+            alert("Success! Your question has been posted.");
+            this.props.toggleQuestionList();
         }).catch((err) => {
             console.log("ERROR: " + err);
         });
     };
 
+    checkValidBounty(value) {
+        let reg = new RegExp('^\\d+$');
+        if (value.match(reg) || value === "") {
+            this.setState({invalidBountyInput: false});
+        }
+        else {
+            this.setState({invalidBountyInput: true});
+        }
+    }
 
+    handleUserInput = (e) => {
+        const value = e.target.value;
+        this.setState({bountyInput: value},
+            () => {
+                this.checkValidBounty(value)
+            });
+    };
 
 
     renderPostQuestionForm() {
@@ -88,10 +111,20 @@ class Post extends Component {
                               placeholder="Provide all the necessary details for someone to answer."></textarea><br/>
 
                     <label> Bounty (optional) </label>
-                    <input type="text" title="bountyAmount"
-                           placeholder="Attach a bounty to incentivize your question to be answered."/><br/>
+                    <input value={this.state.bountyInput}
+                           onChange={this.handleUserInput} type="text" title="bountyAmount"
+                           placeholder="Attach a bounty to incentivize your question to be answered."/>
 
-                    <button>Submit Question</button>
+                    {this.state.invalidBountyInput ?
+                        <p className="invalidInputMessage">value must be a number</p> :
+                        null}
+                    <br/>
+
+                    {this.state.invalidBountyInput
+                        ? <button disabled={true}>Submit Question</button>
+                        : <button>Submit Question</button>}
+
+                    {/*<button>Submit Question</button>*/}
                 </form>
             </div>
         )
