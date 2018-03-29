@@ -6,6 +6,7 @@ import './css/App.css'
 import getWeb3 from './utils/getWeb3'
 import QuestionAnswerContract from '../build/contracts/QuestionAnswer.json'
 import SingleQuestion from "./components/SingleQuestion";
+import MyQuestions from "./components/MyQuestions";
 
 const contract = require('truffle-contract');
 const QuestionAnswer = contract(QuestionAnswerContract);
@@ -28,6 +29,7 @@ class App extends Component {
             showPostComponent: false,
             showQuestionList: false,
             showSingleQuestion: false,
+            showMyQuestions: false,
             getWeb3: null,
             questionID: null,
             questionTitle: null,
@@ -38,6 +40,7 @@ class App extends Component {
         };
         this.togglePostComponent = this.togglePostComponent.bind(this);
         this.toggleQuestionListComponent = this.toggleQuestionListComponent.bind(this);
+        this.toggleMyQuestionsComponent = this.toggleMyQuestionsComponent.bind(this);
     }
 
 
@@ -89,13 +92,33 @@ class App extends Component {
     }
 
     togglePostComponent() {
-        this.setState({showPostComponent: true, showQuestionList: false, showSingleQuestion: false});
+        this.setState({
+            showPostComponent: true,
+            showQuestionList: false,
+            showSingleQuestion: false,
+            showMyQuestions: false
+        });
 
     }
 
     toggleQuestionListComponent() {
-        this.setState({showPostComponent: false, showQuestionList: true, showSingleQuestion: false});
+        this.setState({
+            showPostComponent: false,
+            showQuestionList: true,
+            showSingleQuestion: false,
+            showMyQuestions: false
+        });
     }
+
+    toggleMyQuestionsComponent() {
+        this.setState({
+            showPostComponent: false,
+            showQuestionList: false,
+            showSingleQuestion: false,
+            showMyQuestions: true
+        });
+    }
+
 
     toggleSingleQuestionComponent = (questionID, questionTitle, questionDesc, questionBounty, questionTimestamp) => {
         this.setState({showPostComponent: false, showQuestionList: false, showSingleQuestion: true});
@@ -116,6 +139,9 @@ class App extends Component {
                     <button onClick={this.togglePostComponent} className="Post-button">Post Question</button>
                     <button onClick={this.toggleQuestionListComponent} className="Browse-button">Browse Questions
                     </button>
+                    <button onClick={this.toggleMyQuestionsComponent} className="My-Questions-button">My Submitted
+                        Questions
+                    </button>
                 </header>
 
                 <div className="Main-panel">
@@ -135,12 +161,17 @@ class App extends Component {
                                 questionBounty={this.state.questionBounty}
                                 questionTimestamp={this.state.questionTimestamp}
                             />
-                            : <Post web3={this.state.web3}
-                                    ipfs={this.state.ipfs}
-                                    contractInstance={contractInstance}
-                                    userAccount={this.state.account}
+                            :
+                            this.state.showMyQuestions
+                                ? <MyQuestions />
 
-                            />}
+                                : <Post web3={this.state.web3}
+                                        ipfs={this.state.ipfs}
+                                        contractInstance={contractInstance}
+                                        userAccount={this.state.account}
+                                        toggleQuestionList={this.toggleQuestionListComponent}
+
+                                />}
 
                 </div>
             </div>

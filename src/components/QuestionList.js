@@ -58,7 +58,7 @@ class QuestionList extends Component {
     epochToDate(epochTimestamp) {
         let d = new Date(0); // The 0 there is the key, which sets the date to the epoch
         d.setUTCSeconds(epochTimestamp);
-        return d.toDateString() + " " + d.toLocaleTimeString();;
+        return d.toDateString() + " " + d.toLocaleTimeString();
     }
 
     gweiToEth(bountyInGwei){
