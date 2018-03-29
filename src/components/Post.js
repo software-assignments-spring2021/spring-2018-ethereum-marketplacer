@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import '../css/Post.css';
 
-let savePostOnIpfs = (blob, ipfs) => {
+export const savePostOnIpfs = (blob, ipfs) => {
     return new Promise(function (resolve, reject) {
         const descBuffer = Buffer.from(blob, 'utf-8');
         ipfs.add(descBuffer).then((response) => {

@@ -48,6 +48,7 @@ class QuestionList extends Component {
                                 questionDescription: myQuestionObj.questionDescription
                             });
                             this.setState({questions: questions});
+                            this.setState({strHash: ipfsHash});
                         });
                     });
                 });
@@ -71,7 +72,9 @@ class QuestionList extends Component {
         // for each question, do this markup
         questions = questions.map((question) =>
             <div className="Individual-Question-container" key={question.id}>
-                <div onClick={() => this.toggleSingleQuestionComponent(question.id, question.questionTitle,
+                <div onClick={() => this.toggleSingleQuestionComponent(
+                    question.id,
+                    question.questionTitle,
                     question.questionDescription,
                     question.bounty.toNumber(),
                     question.timestamp.toNumber()

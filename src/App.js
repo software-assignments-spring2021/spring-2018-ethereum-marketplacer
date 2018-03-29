@@ -155,6 +155,10 @@ class App extends Component {
                         />
                         : this.state.showSingleQuestion
                             ? <SingleQuestion
+                                web3={this.state.web3}
+                                ipfs={this.state.ipfs}
+                                contractInstance={contractInstance}
+                                userAccount={this.state.account}
                                 questionID={this.state.questionID}
                                 questionTitle={this.state.questionTitle}
                                 questionDesc={this.state.questionDesc}
