@@ -29,6 +29,7 @@ class Post extends Component {
             isWriteSuccess: false,
             bountyInput: "",
             invalidBountyInput: false,
+            invalidBountyAmount:false,
             titleInput:"",
             invalidTitleInput:false
         }
@@ -83,8 +84,11 @@ class Post extends Component {
         if (value.match(reg) || value === "") {
             this.setState({invalidBountyInput: false});
         }
+        else if(value>this.props.balance){
+            this.setState({invalidBountyAmount: false});}
         else {
             this.setState({invalidBountyInput: true});
+            this.setState({invalidBountyAmount: true});
         }
     }
 
@@ -140,9 +144,11 @@ class Post extends Component {
                     {this.state.invalidBountyInput ?
                         <p className="invalidInputMessage">value must be a number</p> :
                         null}
+                    {this.state.invalidBountyAmount ?
+                        <p className="invalidInputMessage">Not enough in Metamask account</p> : null}
                     <br/>
 
-                    {this.state.invalidBountyInput || this.state.invalidTitleInput || this.state.titleInput===""
+                    {this.state.invalidBountyInput ||this.state.invalidBountyAmount || this.state.invalidTitleInput || this.state.titleInput===""
                         ? <button disabled={true}>Submit Question</button>
                         : <button>Submit Question</button>}
 

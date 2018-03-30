@@ -22,7 +22,7 @@ let contractInstance;
 class App extends Component {
     // alert(questionID + " " + questionTitle + " " + questionDesc + " " + questionBounty + " " + questionTimestamp);
 
-    constructor(props) {
+    constructor(props){
         super(props);
 
         this.state = {
@@ -35,7 +35,8 @@ class App extends Component {
             questionTitle: null,
             questionDesc: null,
             questionBounty: null,
-            questionTimestamp: null
+            questionTimestamp: null,
+            balance:null,
 
         };
         this.togglePostComponent = this.togglePostComponent.bind(this);
@@ -66,8 +67,8 @@ class App extends Component {
             }
             console.log("Account 0: " + accounts[0]);
             this.setState({account: accounts[0]});
-//            var balance=web3.eth.getBalance(accounts[0]);
-//            balance=web3.toDecimal(balance);
+            var balanc=this.state.web3.eth.getBalance(accounts[0]);
+            this.setState({balance: this.state.web3.toDecimal(balanc)});
             QuestionAnswer.deployed().then((contract) => {
                 console.log("contract.address: " + contract.address);
                 contractInstance = contract;
