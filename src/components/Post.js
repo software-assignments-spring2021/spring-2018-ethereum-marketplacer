@@ -83,12 +83,15 @@ class Post extends Component {
         let reg = new RegExp('^\\d+$');
         if (value.match(reg) || value === "") {
             this.setState({invalidBountyInput: false});
+            if (value>this.props.balance){
+                        this.setState({invalidBountyAmount: true});
+           }
+           else{this.setState({invalidBountyAmount: false});}
+
         }
-        else if(value>this.props.balance){
-            this.setState({invalidBountyAmount: false});}
         else {
             this.setState({invalidBountyInput: true});
-            this.setState({invalidBountyAmount: true});
+            this.setState({invalidBountyAmount: false});
         }
     }
 

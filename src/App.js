@@ -67,8 +67,20 @@ class App extends Component {
             }
             console.log("Account 0: " + accounts[0]);
             this.setState({account: accounts[0]});
-            var balanc=this.state.web3.eth.getBalance(accounts[0]);
-            this.setState({balance: this.state.web3.toDecimal(balanc)});
+
+
+            this.state.web3.eth.getBalance(this.state.account, function(error, result){
+                let balance='';
+                if(!error){
+                    balance=JSON.stringify(result);
+                    balance=balance.replace(/['"]+/g, '');
+                    balance=parseInt(balance)/1000000000000000000;
+                    this.setState({balance:balance});
+                    console.log(this.state.balance);
+                }
+                else
+                    console.error(error);
+              }.bind(this));
             QuestionAnswer.deployed().then((contract) => {
                 console.log("contract.address: " + contract.address);
                 contractInstance = contract;
@@ -172,6 +184,7 @@ class App extends Component {
                                         contractInstance={contractInstance}
                                         userAccount={this.state.account}
                                         toggleQuestionList={this.toggleQuestionListComponent}
+                                        balance={this.state.balance}
 
                                 />}
 
