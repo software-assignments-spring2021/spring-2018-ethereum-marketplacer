@@ -28,7 +28,10 @@ class Post extends Component {
             strHash: null,
             isWriteSuccess: false,
             bountyInput: "",
-            invalidBountyInput: false
+            invalidBountyInput: false,
+            invalidBountyAmount:false,
+            titleInput:"",
+            invalidTitleInput:false
         }
     }
 
@@ -80,18 +83,41 @@ class Post extends Component {
         let reg = new RegExp('^\\d+$');
         if (value.match(reg) || value === "") {
             this.setState({invalidBountyInput: false});
+            if (value>this.props.balance){
+                        this.setState({invalidBountyAmount: true});
+           }
+           else{this.setState({invalidBountyAmount: false});}
+
         }
         else {
             this.setState({invalidBountyInput: true});
+            this.setState({invalidBountyAmount: false});
         }
     }
 
+    checkValidTitle(value){
+        if (value==="") {
+            this.setState({invalidTitleInput: true});
+        }
+        else{
+            this.setState({invalidTitleInput:false});
+           }
+    }
+
+
     handleUserInput = (e) => {
         const value = e.target.value;
+        if (e.target.title==="bountyAmount"){
         this.setState({bountyInput: value},
             () => {
                 this.checkValidBounty(value)
             });
+        }
+        else{
+        this.setState({titleInput: value},
+            () => {
+                this.checkValidTitle(value)});
+        }
     };
 
 
@@ -102,9 +128,12 @@ class Post extends Component {
 
                 <form className="Post-form" onSubmit={this.handleSubmit}>
                     <label> Title </label>
-                    <input type="text" title="title"
-                           placeholder="What's your question? Be specific. "/><br/>
-
+                    <input val={this.state.titleInput}
+                           onChange={this.handleUserInput} type="text" title="Title"
+                           placeholder="What's your question? Be specific. "/>
+                    {this.state.invalidTitleInput ?
+                        <p className="invalidInputMessage">Must have title</p> :
+                            null}
                     <label> Text (Optional) </label>
                     <textarea type="text"
                               title="content"
@@ -118,14 +147,16 @@ class Post extends Component {
                     {this.state.invalidBountyInput ?
                         <p className="invalidInputMessage">value must be a number</p> :
                         null}
+                    {this.state.invalidBountyAmount ?
+                        <p className="invalidInputMessage">Not enough in Metamask account</p> : null}
                     <br/>
 
-                    {this.state.invalidBountyInput
+                    {this.state.invalidBountyInput ||this.state.invalidBountyAmount || this.state.invalidTitleInput || this.state.titleInput===""
                         ? <button disabled={true}>Submit Question</button>
                         : <button>Submit Question</button>}
 
                     {/*<button>Submit Question</button>*/}
-                </form>
+               </form>
             </div>
         )
     }
