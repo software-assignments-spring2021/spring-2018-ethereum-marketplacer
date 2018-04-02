@@ -80,7 +80,7 @@ class Post extends Component {
     };
 
     checkValidBounty(value) {
-        let reg = new RegExp('^\\d+$');
+        var reg = /^[0-9]*\.?[0-9]*$/;
         if (value.match(reg) || value === "") {
             this.setState({invalidBountyInput: false});
             if (value>this.props.balance){
@@ -132,7 +132,7 @@ class Post extends Component {
                            onChange={this.handleUserInput} type="text" title="Title"
                            placeholder="What's your question? Be specific. "/>
                     {this.state.invalidTitleInput ?
-                        <p className="invalidInputMessage">Must have title</p> :
+                        <p className="invalidInputMessage">Title is required</p> :
                             null}
                     <label> Text (Optional) </label>
                     <textarea type="text"
@@ -145,7 +145,7 @@ class Post extends Component {
                            placeholder="Attach a bounty to incentivize your question to be answered."/>
 
                     {this.state.invalidBountyInput ?
-                        <p className="invalidInputMessage">value must be a number</p> :
+                        <p className="invalidInputMessage">Bounty input must be a number</p> :
                         null}
                     {this.state.invalidBountyAmount ?
                         <p className="invalidInputMessage">Not enough in Metamask account</p> : null}
