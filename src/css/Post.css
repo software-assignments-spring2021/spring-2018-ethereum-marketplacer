@@ -27,6 +27,16 @@
     box-sizing: border-box;
 }
 
+.bountyInput {
+    width: 75%;
+    padding: 12px 20px;
+    margin: 8px 0;
+
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
 .Post-form-container textarea {
     width: 100%;
     padding: 12px 20px;
@@ -70,4 +80,6 @@
     margin-bottom:0px;
 
 }
+
+
 

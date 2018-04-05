@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 import '../css/Post.css';
+import Dropdown from 'react-dropdown'
+import 'react-dropdown/style.css'
 
 let savePostOnIpfs = (blob, ipfs) => {
     return new Promise(function (resolve, reject) {
@@ -13,6 +15,8 @@ let savePostOnIpfs = (blob, ipfs) => {
         })
     })
 };
+
+const options=['one','two','three']
 
 class Post extends Component {
 
@@ -32,6 +36,7 @@ class Post extends Component {
             invalidBountyAmount:false,
             titleInput:"",
             invalidTitleInput:false
+
         }
     }
 
@@ -79,6 +84,9 @@ class Post extends Component {
         });
     };
 
+
+
+
     checkValidBounty(value) {
         var reg = /^[0-9]*\.?[0-9]*$/;
         if (value.match(reg) || value === "") {
@@ -103,6 +111,7 @@ class Post extends Component {
             this.setState({invalidTitleInput:false});
            }
     }
+
 
 
     handleUserInput = (e) => {
@@ -140,17 +149,19 @@ class Post extends Component {
                               placeholder="Provide all the necessary details for someone to answer."></textarea><br/>
 
                     <label> Bounty (optional) </label>
+
+                    <p className="bountyInput">
+
                     <input value={this.state.bountyInput}
                            onChange={this.handleUserInput} type="text" title="bountyAmount"
                            placeholder="Attach a bounty to incentivize your question to be answered."/>
-
                     {this.state.invalidBountyInput ?
                         <p className="invalidInputMessage">Bounty input must be a number</p> :
                         null}
                     {this.state.invalidBountyAmount ?
                         <p className="invalidInputMessage">Not enough in Metamask account</p> : null}
                     <br/>
-
+                    </p>
                     {this.state.invalidBountyInput ||this.state.invalidBountyAmount || this.state.invalidTitleInput || this.state.titleInput===""
                         ? <button disabled={true}>Submit Question</button>
                         : <button>Submit Question</button>}
