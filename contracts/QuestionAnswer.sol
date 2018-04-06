@@ -26,7 +26,7 @@ contract QuestionAnswer {
         uint bountyAmount;
         string questionContent;
         string[] answerKeys; // list of answer keys
-        mapping(string => Answer) AnswerMapping; // questionKey => struct Answer
+        mapping(string => Answer) AnswerMapping; // answerKey => struct Answer
     }
 
     // list of question keys so we can enumerate them
@@ -60,7 +60,7 @@ contract QuestionAnswer {
     function submitAnswer(string questionKey, string answer) public returns (bool success) {
 
         // add key to answerKeys[] array, which is stored in the specfic Question struct it is replying to
-        QuestionMapping[questionKey].answerKeys.push(questionKey);
+        QuestionMapping[questionKey].answerKeys.push(answer);
 
         // setting value as: struct Answer
         QuestionMapping[questionKey].AnswerMapping[answer] = Answer(questionKey, msg.sender, block.timestamp, answer, false);
@@ -121,6 +121,14 @@ contract QuestionAnswer {
     function getQuestionByHash(string questionHash) public view returns (uint, uint, string) {
         Question storage question = QuestionMapping[questionHash];
         return (question.timestamp, question.bountyAmount, questionHash);
+    }
+
+    // returns the ipfs hash, timestamp, isAcceptedAnswer
+    function getAnswerByIndex(string questionHash, uint index) public view returns (string, uint, bool) {
+        Question storage question = QuestionMapping[questionHash];
+        string storage answerHash = question.answerKeys[index];
+        Answer storage answer = question.AnswerMapping[answerHash];
+        return (answerHash, answer.timestamp, answer.isAcceptedAnswer);
     }
 
     function getQuestionByIndex(uint index) public view returns (string) {

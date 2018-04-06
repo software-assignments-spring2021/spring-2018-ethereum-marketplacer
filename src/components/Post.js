@@ -50,7 +50,7 @@ class Post extends Component {
 
         console.log("props.ipfs: " + this.props.ipfs);
         console.log(this.props.web3);
-        console.log(this.props.acct);
+        console.log(this.props.userAccount);
 
         const ipfsLocal = this.props.ipfs;
 
@@ -61,7 +61,10 @@ class Post extends Component {
             console.log(hash);
             this.setState({strHash: hash});
             console.log("strHash: " + this.state.strHash);
-            return this.props.contractInstance.submitQuestion(this.state.strHash, {
+            return hash;
+
+        }).then((hash) => {
+            this.props.contractInstance.submitQuestion(hash, {
                 from: this.props.userAccount,
                 value: this.props.web3.toWei(bountyAmount, "ether")
             });
@@ -73,6 +76,7 @@ class Post extends Component {
             console.log("count updated to: " + data.toNumber());
             this.setState({count: data.toNumber()});
             alert("Success! Your question has been posted.");
+            console.log("bounty is: " + this.state.bountyInput);
             this.props.toggleQuestionList();
         }).catch((err) => {
             console.log("ERROR: " + err);
@@ -106,14 +110,17 @@ class Post extends Component {
 
 
     handleUserInput = (e) => {
-        const value = e.target.value;
+        let value = e.target.value;
+
         if (e.target.title==="bountyAmount"){
-        this.setState({bountyInput: value},
+            value = value || 0;
+            console.log("value is: " + value);
+            this.setState({bountyInput: value},
             () => {
                 this.checkValidBounty(value)
             });
         }
-        else{
+        else {
         this.setState({titleInput: value},
             () => {
                 this.checkValidTitle(value)});
