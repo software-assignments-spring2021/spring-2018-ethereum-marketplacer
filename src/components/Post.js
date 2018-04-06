@@ -102,11 +102,13 @@ class Post extends Component {
     checkValidTitle(value){
         if (value==="") {
             this.setState({invalidTitleInput: true});
+
         }
         else{
             this.setState({invalidTitleInput:false});
            }
     }
+
 
 
     handleUserInput = (e) => {
@@ -116,11 +118,14 @@ class Post extends Component {
             value = value || 0;
             console.log("value is: " + value);
             this.setState({bountyInput: value},
+
             () => {
                 this.checkValidBounty(value)
             });
         }
+
         else {
+
         this.setState({titleInput: value},
             () => {
                 this.checkValidTitle(value)});

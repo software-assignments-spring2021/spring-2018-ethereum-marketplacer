@@ -87,6 +87,7 @@ class SingleQuestion extends Component {
             console.log("Answer hash: " + hash);
             return hash;
         }).then((hash) => {
+
             return this.props.contractInstance.submitAnswer(this.props.questionID, hash, {
                 from: this.props.userAccount
             });
