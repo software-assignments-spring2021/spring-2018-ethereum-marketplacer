@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import '../css/SingleQuestion.css';
+import {savePostOnIpfs} from './Post.js';
 
 
 class SingleQuestion extends Component {
@@ -18,7 +19,24 @@ class SingleQuestion extends Component {
     }
 
     handleSubmitAnswer = (event) => {
+        event.preventDefault();
+        const e = event.nativeEvent;
+        const myAnswer = e.target[0].value;
+        console.log("answer is: " + myAnswer);
 
+        const ipfsLocal = this.props.ipfs;
+        console.log("Question hash: " + this.props.questionID);
+
+        savePostOnIpfs(myAnswer, ipfsLocal).then((hash) => {
+            console.log('The answer is now on IPFS');
+            console.log("Answer hash: " + hash);
+
+            return this.props.contractInstance.submitAnswer(this.props.questionID, hash, {
+                from: this.props.userAccount
+            });
+        }).then((result) => {
+            alert("Success! Your answer has been submitted.");
+        });
     };
 
     render() {

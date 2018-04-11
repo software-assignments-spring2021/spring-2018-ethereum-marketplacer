@@ -3,7 +3,7 @@ import '../css/Post.css';
 import Dropdown from 'react-dropdown'
 import 'react-dropdown/style.css'
 
-let savePostOnIpfs = (blob, ipfs) => {
+export const savePostOnIpfs = (blob, ipfs) => {
     return new Promise(function (resolve, reject) {
         const descBuffer = Buffer.from(blob, 'utf-8');
         ipfs.add(descBuffer).then((response) => {
@@ -36,7 +36,6 @@ class Post extends Component {
             invalidBountyAmount:false,
             titleInput:"",
             invalidTitleInput:false
-
         }
     }
 
@@ -112,8 +111,6 @@ class Post extends Component {
            }
     }
 
-
-
     handleUserInput = (e) => {
         const value = e.target.value;
         if (e.target.title==="bountyAmount"){
@@ -162,6 +159,7 @@ class Post extends Component {
                         <p className="invalidInputMessage">Not enough in Metamask account</p> : null}
                     <br/>
                     </p>
+
                     {this.state.invalidBountyInput ||this.state.invalidBountyAmount || this.state.invalidTitleInput || this.state.titleInput===""
                         ? <button disabled={true}>Submit Question</button>
                         : <button>Submit Question</button>}
