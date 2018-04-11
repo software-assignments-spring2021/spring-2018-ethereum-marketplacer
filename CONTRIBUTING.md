@@ -24,98 +24,100 @@ Also see [Github: Using Pull Requests](https://help.github.com/articles/about-pu
 
 ## Setup instructions
 
-//clone the code from git to your local machine
+clone the code from git to your local machine
 ```
 git clone https://github.com/nyu-software-engineering/ethereum-marketplacer.git
 ```
 
-// navigate to the repository directory 
+navigate to the repository directory 
 ```
 cd ethereum-marketplacer
 ```
 
-// setup npm
+setup npm
 ```
 npm install
 ```
 
-// install ganache (using downloaded installer app)
+install ganache (using downloaded installer app)
 
-// install truffle
+install truffle
 ```
 npm install -g truffle
 ```
 
-// unbox the skeleton of a react app in truffle
+unbox the skeleton of a react app in truffle
 ```
 truffle unbox react
 ```
 
-// compile
+compile
 ```
 truffle compile
 ```
 
-// now open up the Ganache app on your local computer
+now open up the Ganache app on your local computer
 
-// run migration scripts that help deploy code to the Ethereum blockchain
+run migration scripts that help deploy code to the Ethereum blockchain
 ```
 truffle migrate
 ```
 
-// look at ganache app and see balances - one should be a bit lower than 100 if everything is working
+look at ganache app and see balances - one should be a bit lower than 100 if everything is working
 
-// run unit tests... these don't work right now
+run unit tests... these don't work right now
 ```
 truffle test 
 ```
 
 
-// To start up web app, do the following...
+To start up web app, do the following...
 
-// start up ipfs
+start up ipfs
 ```
 ipfs init
 ```
 
-// change IPFS ports
+change IPFS ports
 ```
 ipfs config Addresses.Gateway /ip4/0.0.0.0/tcp/9001
 ipfs config Addresses.API /ip4/0.0.0.0/tcp/5001
 ```
 
-// configure IPFS to allow cross-origin scripting
+configure IPFS to allow cross-origin scripting
 ```
 ipfs config --json API.HTTPHeaders.Access-Control-Allow-Methods '["PUT", "GET", "POST", "OPTIONS"]'
 ipfs config --json API.HTTPHeaders.Access-Control-Allow-Origin '["*"]'
 ```
 
-// set up metamask
-// copy the RPC server from Ganache and paste into Metamask network Custom RPC field
+set up metamask
 
-// compile code and migrate deploy scripts to the blockchain
+copy the RPC server from Ganache and paste into Metamask network Custom RPC field
+
+compile code and migrate deploy scripts to the blockchain
 ```
 truffle compile
 truffle migrate --reset
 ```
 
-// install latest stable node.js... will ask for admin password
+install latest stable node.js... will ask for admin password
 ```
 sudo n stable 
 ```
 
-// update npm (this may require sudo)
+update npm (this may require sudo)
 ```
 npm update
 ```
 
-// set up IPFS daemon
+set up IPFS daemon
 ```
 ipfs daemon
 ```
 
-// switch to a different Terminal window
-// navigate to the project folder in the new window
+switch to a different Terminal window
+
+navigate to the project folder in the new window
 
 // start npm...
 ```
