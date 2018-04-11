@@ -22,7 +22,7 @@ When filing a Pull Request, make sure it is rebased on top of most recent master
 Also see [Github: Using Pull Requests](https://help.github.com/articles/about-pull-requests/)
 
 
-##Setup instructions
+## Setup instructions
 
 //clone the code from git to your local machine
 ```
