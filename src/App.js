@@ -26,6 +26,7 @@ class App extends Component {
         super(props);
 
         this.state = {
+            account: null,
             showPostComponent: false,
             showQuestionList: false,
             showSingleQuestion: false,
