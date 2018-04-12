@@ -18,7 +18,7 @@ class SingleQuestion extends Component {
         let answers = this.state.answers;
 
         this.props.contractInstance.getReplyCount.call(this.props.questionID).then((count) => {
-           // console.log("answer count: " + count);
+            // console.log("answer count: " + count);
 
             for (let i = 0; i < count; i++) {
                 let answerHash;
@@ -57,13 +57,13 @@ class SingleQuestion extends Component {
 
         let answers = this.state.answers;
 
-            // for each answer, do this markup
+        // for each answer, do this markup
         answers = answers.map((answer) =>
             <div className="Individual-Answer-container" key={answer.id}>
                 <ul>
-                {answer.answerText.toString()}
-                {answer.timestamp.toNumber()}
-                {answer.isAccepted.toString()}
+                    {answer.answerText.toString()}
+                    {answer.timestamp.toNumber()}
+                    {answer.isAccepted.toString()}
                 </ul>
             </div>
         );
