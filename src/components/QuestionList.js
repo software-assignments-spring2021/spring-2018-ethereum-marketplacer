@@ -104,6 +104,7 @@ class QuestionList extends Component {
                     question.bounty.toNumber(),
                     question.timestamp.toNumber()
                 )} className="Individual-Question-Title"> {question.questionTitle}
+
                 </div>
                 {/*<div className="Individual-Question-Description">*/}
                 {/*Description: {question.questionDescription}*/}

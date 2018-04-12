@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 import '../css/Post.css';
+import Dropdown from 'react-dropdown'
+import 'react-dropdown/style.css'
 
 export const savePostOnIpfs = (blob, ipfs) => {
     return new Promise(function (resolve, reject) {
@@ -13,6 +15,8 @@ export const savePostOnIpfs = (blob, ipfs) => {
         })
     })
 };
+
+const options=['one','two','three']
 
 class Post extends Component {
 
@@ -58,7 +62,6 @@ class Post extends Component {
         console.log(this.props.web3);
         console.log(this.props.userAccount);
 
-
         const ipfsLocal = this.props.ipfs;
 
         // check bounty amount valid
@@ -68,7 +71,10 @@ class Post extends Component {
             console.log(hash);
             this.setState({strHash: hash});
             console.log("strHash: " + this.state.strHash);
-            return this.props.contractInstance.submitQuestion(this.state.strHash, {
+            return hash;
+
+        }).then((hash) => {
+            this.props.contractInstance.submitQuestion(hash, {
                 from: this.props.userAccount,
                 value: this.props.web3.toWei(bountyAmount, "ether")
             });
@@ -80,14 +86,18 @@ class Post extends Component {
             console.log("count updated to: " + data.toNumber());
             this.setState({count: data.toNumber()});
             alert("Success! Your question has been posted.");
+            console.log("bounty is: " + this.state.bountyInput);
             this.props.toggleQuestionList();
         }).catch((err) => {
             console.log("ERROR: " + err);
         });
     };
 
+
+
+
     checkValidBounty(value) {
-        let reg = new RegExp('^\\d+$');
+        var reg = /^[0-9]*\.?[0-9]*$/;
         if (value.match(reg) || value === "") {
             this.setState({invalidBountyInput: false});
             if (value > this.props.balance) {
@@ -107,26 +117,31 @@ class Post extends Component {
     checkValidTitle(value) {
         if (value === "") {
             this.setState({invalidTitleInput: true});
+
         }
         else {
             this.setState({invalidTitleInput: false});
         }
     }
 
-
     handleUserInput = (e) => {
-        const value = e.target.value;
-        if (e.target.title === "bountyAmount") {
+        let value = e.target.value;
+
+        if (e.target.title==="bountyAmount"){
+            value = value || 0;
+            console.log("value is: " + value);
             this.setState({bountyInput: value},
-                () => {
-                    this.checkValidBounty(value)
-                });
+
+            () => {
+                this.checkValidBounty(value)
+            });
         }
+
         else {
-            this.setState({titleInput: value},
-                () => {
-                    this.checkValidTitle(value)
-                });
+
+        this.setState({titleInput: value},
+            () => {
+                this.checkValidTitle(value)});
         }
     };
 
@@ -142,24 +157,28 @@ class Post extends Component {
                            onChange={this.handleUserInput} type="text" title="Title"
                            placeholder="What's your question? Be specific. "/>
                     {this.state.invalidTitleInput ?
-                        <p className="invalidInputMessage">Must have title</p> :
-                        null}
+
+                        <p className="invalidInputMessage">Title is required</p> :
+                            null}
                     <label> Text (Optional) </label>
                     <textarea type="text"
                               title="content"
                               placeholder="Provide all the necessary details for someone to answer."></textarea><br/>
 
                     <label> Bounty (optional) </label>
+
+                    <p className="bountyInput">
+
                     <input value={this.state.bountyInput}
                            onChange={this.handleUserInput} type="text" title="bountyAmount"
                            placeholder="Attach a bounty to incentivize your question to be answered."/>
-
                     {this.state.invalidBountyInput ?
-                        <p className="invalidInputMessage">value must be a number</p> :
+                        <p className="invalidInputMessage">Bounty input must be a number</p> :
                         null}
                     {this.state.invalidBountyAmount ?
                         <p className="invalidInputMessage">Not enough in Metamask account</p> : null}
                     <br/>
+                    </p>
 
                     {this.state.invalidBountyInput || this.state.invalidBountyAmount || this.state.invalidTitleInput || this.state.titleInput === ""
                         ? <button disabled={true}>Submit Question</button>
