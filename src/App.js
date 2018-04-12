@@ -22,7 +22,7 @@ let contractInstance;
 class App extends Component {
     // alert(questionID + " " + questionTitle + " " + questionDesc + " " + questionBounty + " " + questionTimestamp);
 
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.state = {
@@ -36,7 +36,10 @@ class App extends Component {
             questionDesc: null,
             questionBounty: null,
             questionTimestamp: null,
-            balance:null,
+            balance: null,
+            myQuestions: [],
+            isAsker: false
+
 
         };
         this.togglePostComponent = this.togglePostComponent.bind(this);
@@ -69,18 +72,19 @@ class App extends Component {
             this.setState({account: accounts[0]});
 
 
-            this.state.web3.eth.getBalance(this.state.account, function(error, result){
-                let balance='';
-                if(!error){
-                    balance=JSON.stringify(result);
-                    balance=balance.replace(/['"]+/g, '');
-                    balance=parseInt(balance)/1000000000000000000;
-                    this.setState({balance:balance});
+            this.state.web3.eth.getBalance(this.state.account, function (error, result) {
+                let balance = '';
+                if (!error) {
+                    balance = JSON.stringify(result);
+                    balance = balance.replace(/['"]+/g, '');
+                    balance = parseInt(balance) / 1000000000000000000;
+                    this.setState({balance: balance});
                     console.log(this.state.balance);
                 }
-                else
+                else {
                     console.error(error);
-              }.bind(this));
+                }
+            }.bind(this));
             QuestionAnswer.deployed().then((contract) => {
                 console.log("contract.address: " + contract.address);
                 contractInstance = contract;
@@ -134,16 +138,26 @@ class App extends Component {
     }
 
 
-    toggleSingleQuestionComponent = (questionID, questionTitle, questionDesc, questionBounty, questionTimestamp) => {
+    toggleSingleQuestionComponent = (questionID, questionTitle, questionDesc, questionBounty, questionTimestamp, isAsker) => {
+        console.log(this.state.isAsker);
         this.setState({showPostComponent: false, showQuestionList: false, showSingleQuestion: true});
         this.setState({
             questionID: questionID,
             questionTitle: questionTitle,
             questionDesc: questionDesc,
             questionBounty: questionBounty,
-            questionTimestamp: questionTimestamp
-        })
+            questionTimestamp: questionTimestamp,
+            isAsker: isAsker
+        });
+        console.log(this.state.isAsker);
+
     };
+
+    passBackMyQuestions = (myQuestions) => {
+        this.setState({myQuestions: myQuestions});
+        console.log(this.state.myQuestions);
+    };
+
 
     render() {
         return (
@@ -166,6 +180,8 @@ class App extends Component {
                                         contractInstance={contractInstance}
                                         userAccount={this.state.account}
                                         toggleSingleQuestion={this.toggleSingleQuestionComponent}
+                                        passBackMyQuestions={this.passBackMyQuestions}
+
                         />
                         : this.state.showSingleQuestion
                             ? <SingleQuestion
@@ -178,10 +194,15 @@ class App extends Component {
                                 questionDesc={this.state.questionDesc}
                                 questionBounty={this.state.questionBounty}
                                 questionTimestamp={this.state.questionTimestamp}
+                                isAsker={this.state.isAsker}
                             />
                             :
                             this.state.showMyQuestions
-                                ? <MyQuestions />
+                                ? <MyQuestions
+                                    myQuestions={this.state.myQuestions}
+                                    toggleSingleQuestion={this.toggleSingleQuestionComponent}
+
+                                />
 
                                 : <Post web3={this.state.web3}
                                         ipfs={this.state.ipfs}
@@ -189,7 +210,6 @@ class App extends Component {
                                         userAccount={this.state.account}
                                         toggleQuestionList={this.toggleQuestionListComponent}
                                         balance={this.state.balance}
-
                                 />}
 
                 </div>

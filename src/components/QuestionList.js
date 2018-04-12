@@ -12,7 +12,9 @@ class QuestionList extends Component {
             strHash: null,
             isWriteSuccess: false,
             questions: [],
-            showSingleQuestion: false
+            showSingleQuestion: false,
+            myQuestions: []
+
         };
 
     }
@@ -40,13 +42,36 @@ class QuestionList extends Component {
                             let bounty = questionInfo[1];
                             let ipfsHash = questionInfo[2]; // Same as hash
                             let questions = this.state.questions.slice();
+                            let myQuestions = this.state.questions.slice();
+
                             questions.push({
                                 id: ipfsHash,
                                 timestamp: timestamp,
                                 bounty: bounty,
                                 questionTitle: myQuestionObj.questionTitle,
-                                questionDescription: myQuestionObj.questionDescription
+                                questionDescription: myQuestionObj.questionDescription,
+                                askerAddress: myQuestionObj.askerAddress
                             });
+
+                            console.log("myQuestionObj.askerAddress" + myQuestionObj.askerAddress);
+                            console.log("this.props.userAccount" + this.props.userAccount);
+
+                            if (myQuestionObj.askerAddress === this.props.userAccount) {
+                                myQuestions.push({
+                                    id: ipfsHash,
+                                    timestamp: timestamp,
+                                    bounty: bounty,
+                                    questionTitle: myQuestionObj.questionTitle,
+                                    questionDescription: myQuestionObj.questionDescription,
+                                    askerAddress: myQuestionObj.askerAddress
+                                });
+                                console.log("added to myQuestions");
+                            }
+
+                            this.setState({myQuestions: myQuestions});
+                            this.props.passBackMyQuestions(this.state.myQuestions);
+
+
                             this.setState({questions: questions});
                             this.setState({strHash: ipfsHash});
                         });
@@ -62,8 +87,8 @@ class QuestionList extends Component {
         return d.toDateString() + " " + d.toLocaleTimeString();
     }
 
-    gweiToEth(bountyInGwei){
-        return bountyInGwei/1000000000000000000 + " ETH";
+    gweiToEth(bountyInGwei) {
+        return bountyInGwei / 1000000000000000000 + " ETH";
     }
 
     renderQuestionList() {
@@ -102,7 +127,7 @@ class QuestionList extends Component {
     }
 
     toggleSingleQuestionComponent = (questionID, questionTitle, questionDesc, questionBounty, questionTimestamp) => {
-        this.props.toggleSingleQuestion(questionID, questionTitle, questionDesc, this.gweiToEth(questionBounty), this.epochToDate(questionTimestamp));
+        this.props.toggleSingleQuestion(questionID, questionTitle, questionDesc, this.gweiToEth(questionBounty), this.epochToDate(questionTimestamp), false);
     };
 
 
