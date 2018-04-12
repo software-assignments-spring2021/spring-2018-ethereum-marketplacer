@@ -33,9 +33,9 @@ class Post extends Component {
             isWriteSuccess: false,
             bountyInput: "",
             invalidBountyInput: false,
-            invalidBountyAmount:false,
-            titleInput:"",
-            invalidTitleInput:false
+            invalidBountyAmount: false,
+            titleInput: "",
+            invalidTitleInput: false
         }
     }
 
@@ -49,8 +49,14 @@ class Post extends Component {
         console.log("questionDescription: " + questionDescription);
         console.log("bountyAmount: " + bountyAmount);
 
-        let myQuestionObj = {"questionTitle": questionTitle, "questionDescription": questionDescription};
+        let myQuestionObj = {
+            "questionTitle": questionTitle,
+            "questionDescription": questionDescription,
+            "askerAddress": this.props.userAccount
+        };
         let myQuestionJson = JSON.stringify(myQuestionObj);
+
+        console.log(myQuestionJson);
 
         console.log("props.ipfs: " + this.props.ipfs);
         console.log(this.props.web3);
@@ -94,10 +100,12 @@ class Post extends Component {
         var reg = /^[0-9]*\.?[0-9]*$/;
         if (value.match(reg) || value === "") {
             this.setState({invalidBountyInput: false});
-            if (value>this.props.balance){
-                        this.setState({invalidBountyAmount: true});
-           }
-           else{this.setState({invalidBountyAmount: false});}
+            if (value > this.props.balance) {
+                this.setState({invalidBountyAmount: true});
+            }
+            else {
+                this.setState({invalidBountyAmount: false});
+            }
 
         }
         else {
@@ -106,14 +114,14 @@ class Post extends Component {
         }
     }
 
-    checkValidTitle(value){
-        if (value==="") {
+    checkValidTitle(value) {
+        if (value === "") {
             this.setState({invalidTitleInput: true});
 
         }
-        else{
-            this.setState({invalidTitleInput:false});
-           }
+        else {
+            this.setState({invalidTitleInput: false});
+        }
     }
 
     handleUserInput = (e) => {
@@ -149,6 +157,7 @@ class Post extends Component {
                            onChange={this.handleUserInput} type="text" title="Title"
                            placeholder="What's your question? Be specific. "/>
                     {this.state.invalidTitleInput ?
+
                         <p className="invalidInputMessage">Title is required</p> :
                             null}
                     <label> Text (Optional) </label>
@@ -171,12 +180,12 @@ class Post extends Component {
                     <br/>
                     </p>
 
-                    {this.state.invalidBountyInput ||this.state.invalidBountyAmount || this.state.invalidTitleInput || this.state.titleInput===""
+                    {this.state.invalidBountyInput || this.state.invalidBountyAmount || this.state.invalidTitleInput || this.state.titleInput === ""
                         ? <button disabled={true}>Submit Question</button>
                         : <button>Submit Question</button>}
 
                     {/*<button>Submit Question</button>*/}
-               </form>
+                </form>
             </div>
         )
     }
