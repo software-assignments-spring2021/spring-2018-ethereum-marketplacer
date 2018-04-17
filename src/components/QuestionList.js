@@ -102,7 +102,9 @@ class QuestionList extends Component {
                     question.questionTitle,
                     question.questionDescription,
                     question.bounty.toNumber(),
-                    question.timestamp.toNumber()
+                    question.timestamp.toNumber(),
+                    question.askerAddress
+
                 )} className="Individual-Question-Title"> {question.questionTitle}
 
                 </div>
@@ -127,8 +129,8 @@ class QuestionList extends Component {
 
     }
 
-    toggleSingleQuestionComponent = (questionID, questionTitle, questionDesc, questionBounty, questionTimestamp) => {
-        this.props.toggleSingleQuestion(questionID, questionTitle, questionDesc, this.gweiToEth(questionBounty), this.epochToDate(questionTimestamp), false);
+    toggleSingleQuestionComponent = (questionID, questionTitle, questionDesc, questionBounty, questionTimestamp, askerAddress) => {
+        this.props.toggleSingleQuestion(questionID, questionTitle, questionDesc, this.gweiToEth(questionBounty), this.epochToDate(questionTimestamp), askerAddress);
     };
 
 

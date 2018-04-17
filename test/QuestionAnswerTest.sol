@@ -17,7 +17,7 @@ contract QuestionAnswerTest {
 
     //test whether all correct values were deposited for timestamp
     function testQuestionSubmitInfo(){
-        uint key=qanda.key();
+        uint key= 123;
         //test whether question is correctly mapped
         bytes32 question=("luls");
         Assert.equal(question, qanda.getAskedQuestion(key),"Questions should both be the same");

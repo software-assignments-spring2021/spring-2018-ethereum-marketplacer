@@ -8,7 +8,8 @@ class SingleQuestion extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            answers: []
+            answers: [],
+            isAsker: false
         };
 
     }
@@ -65,6 +66,10 @@ class SingleQuestion extends Component {
                     {answer.timestamp.toNumber()}
                     {answer.isAccepted.toString()}
                 </ul>
+
+                {this.props.userAccount === this.props.askerAddress
+                    ? <p>review permission granted</p>
+                    : <p>review permisssion denied</p>}
             </div>
         );
 
@@ -103,6 +108,7 @@ class SingleQuestion extends Component {
             <div className="SingleQuestion">
                 <h2 className="SingleQuestion-Title">{this.props.questionTitle}</h2>
                 <hr/>
+                <p>{this.props.askerAddress}</p>
                 <div className="SingleQuestion-Desc">{this.props.questionDesc}</div>
                 <div className="SingleQuestion-Details">
                     <div className="SingleQuestion-Timestamp">

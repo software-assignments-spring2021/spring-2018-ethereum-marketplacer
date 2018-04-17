@@ -39,8 +39,7 @@ class App extends Component {
             questionTimestamp: null,
             balance: null,
             myQuestions: [],
-            isAsker: false
-
+            askerAddress: null
 
         };
         this.togglePostComponent = this.togglePostComponent.bind(this);
@@ -139,8 +138,7 @@ class App extends Component {
     }
 
 
-    toggleSingleQuestionComponent = (questionID, questionTitle, questionDesc, questionBounty, questionTimestamp, isAsker) => {
-        console.log(this.state.isAsker);
+    toggleSingleQuestionComponent = (questionID, questionTitle, questionDesc, questionBounty, questionTimestamp, askerAddress) => {
         this.setState({showPostComponent: false, showQuestionList: false, showSingleQuestion: true});
         this.setState({
             questionID: questionID,
@@ -148,9 +146,9 @@ class App extends Component {
             questionDesc: questionDesc,
             questionBounty: questionBounty,
             questionTimestamp: questionTimestamp,
-            isAsker: isAsker
+            askerAddress: askerAddress
         });
-        console.log(this.state.isAsker);
+
 
     };
 
@@ -195,7 +193,7 @@ class App extends Component {
                                 questionDesc={this.state.questionDesc}
                                 questionBounty={this.state.questionBounty}
                                 questionTimestamp={this.state.questionTimestamp}
-                                isAsker={this.state.isAsker}
+                                askerAddress={this.state.askerAddress}
                             />
                             :
                             this.state.showMyQuestions
