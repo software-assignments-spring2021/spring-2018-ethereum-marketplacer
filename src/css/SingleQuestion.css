@@ -66,3 +66,33 @@
     resize: vertical;
     overflow: hidden;
 }
+
+.Individual-Answer-container {
+    color: slategray;
+    /*border-style: solid;*/
+    padding-bottom: 5px;
+    /*margin-top: 10px;*/
+    /*margin-bottom: 10px;*/
+
+}
+
+.Individual-Answer-Title {
+    font-size: 20px;
+    text-align: left;
+    width: 80%;
+
+}
+
+.Individual-Answer-Description {
+    font-size: 20px;
+    text-align: left;
+    width: 80%;
+
+}
+
+.Individual-Answer-Time {
+    text-align: left;
+    /*display: inline;*/
+    /*align: left;*/
+
+}

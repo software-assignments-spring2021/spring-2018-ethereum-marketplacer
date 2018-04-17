@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import '../css/SingleQuestion.css';
 import {savePostOnIpfs} from './Post.js';
+import {epochToDate} from './QuestionList';
 
 
 class SingleQuestion extends Component {
@@ -60,11 +61,14 @@ class SingleQuestion extends Component {
         // for each answer, do this markup
         answers = answers.map((answer) =>
             <div className="Individual-Answer-container" key={answer.id}>
-                <ul>
+                <hr/>
+                <div className="Individual-Answer-Description">
                     {answer.answerText.toString()}
-                    {answer.timestamp.toNumber()}
-                    {answer.isAccepted.toString()}
-                </ul>
+                </div>
+                <div className="Individual-Answer-Time">
+                    Time Submitted: {epochToDate(answer.timestamp.toNumber())}
+                </div>
+
             </div>
         );
 
