@@ -1,6 +1,12 @@
 import React, {Component} from 'react'
 import '../css/QuestionList.css';
 
+export function epochToDate(epochTimestamp) {
+    let d = new Date(0); // The 0 there is the key, which sets the date to the epoch
+    d.setUTCSeconds(epochTimestamp);
+    return d.toDateString() + " " + d.toLocaleTimeString();
+}
+
 class QuestionList extends Component {
 
     constructor(props) {
@@ -81,11 +87,6 @@ class QuestionList extends Component {
         })
     }
 
-    epochToDate(epochTimestamp) {
-        let d = new Date(0); // The 0 there is the key, which sets the date to the epoch
-        d.setUTCSeconds(epochTimestamp);
-        return d.toDateString() + " " + d.toLocaleTimeString();
-    }
 
     gweiToEth(bountyInGwei) {
         return bountyInGwei / 1000000000000000000 + " ETH";
@@ -115,7 +116,7 @@ class QuestionList extends Component {
                     Bounty: {this.gweiToEth(question.bounty.toNumber())}
                 </div>
                 <div className="Individual-Question-Time">
-                    Time Submitted: {this.epochToDate(question.timestamp.toNumber())}
+                    Time Submitted: {epochToDate(question.timestamp.toNumber())}
                 </div>
                 <hr/>
             </div>
@@ -131,6 +132,7 @@ class QuestionList extends Component {
 
     toggleSingleQuestionComponent = (questionID, questionTitle, questionDesc, questionBounty, questionTimestamp, askerAddress) => {
         this.props.toggleSingleQuestion(questionID, questionTitle, questionDesc, this.gweiToEth(questionBounty), this.epochToDate(questionTimestamp), askerAddress);
+
     };
 
 
