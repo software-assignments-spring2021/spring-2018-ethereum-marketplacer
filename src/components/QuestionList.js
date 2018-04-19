@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import '../css/QuestionList.css';
 
+// import {epochToDate} from 'QuestionList';
+
 export function epochToDate(epochTimestamp) {
     let d = new Date(0); // The 0 there is the key, which sets the date to the epoch
     d.setUTCSeconds(epochTimestamp);
@@ -105,7 +107,6 @@ class QuestionList extends Component {
                     question.bounty.toNumber(),
                     question.timestamp.toNumber(),
                     question.askerAddress
-
                 )} className="Individual-Question-Title"> {question.questionTitle}
 
                 </div>
@@ -131,7 +132,14 @@ class QuestionList extends Component {
     }
 
     toggleSingleQuestionComponent = (questionID, questionTitle, questionDesc, questionBounty, questionTimestamp, askerAddress) => {
-        this.props.toggleSingleQuestion(questionID, questionTitle, questionDesc, this.gweiToEth(questionBounty), this.epochToDate(questionTimestamp), askerAddress);
+
+        if (this.props.userAccount === askerAddress) {
+            this.props.toggleSingleQuestion(questionID, questionTitle, questionDesc, this.gweiToEth(questionBounty), epochToDate(questionTimestamp), askerAddress, true);
+        }
+        else {
+            this.props.toggleSingleQuestion(questionID, questionTitle, questionDesc, this.gweiToEth(questionBounty), epochToDate(questionTimestamp), askerAddress, false);
+
+        }
 
     };
 

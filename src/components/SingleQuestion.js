@@ -10,17 +10,21 @@ class SingleQuestion extends Component {
         super(props);
         this.state = {
             answers: [],
-            isAsker: false
+            isAsker: false,
+            answerCount: 0,
+            hasAcceptedAnswer: false
         };
 
     }
 
     componentDidMount() {
         console.log("---------------");
+        console.log("isAsker:" + this.props.isAsker);
         let answers = this.state.answers;
 
+
         this.props.contractInstance.getReplyCount.call(this.props.questionID).then((count) => {
-            // console.log("answer count: " + count);
+            console.log("answer count: " + count);
 
             for (let i = 0; i < count; i++) {
                 let answerHash;
@@ -49,37 +53,12 @@ class SingleQuestion extends Component {
                             id: answerHash
                         });
                         this.setState({answers: answers});
+                        this.setState({answerCount: answers.length});
+
                     });
                 });
             }
         });
-    }
-
-    renderAllReplies() {
-
-        let answers = this.state.answers;
-
-        // for each answer, do this markup
-        answers = answers.map((answer) =>
-            <div className="Individual-Answer-container" key={answer.id}>
-                <hr/>
-                <div className="Individual-Answer-Description">
-                    {answer.answerText.toString()}
-
-                {this.props.userAccount === this.props.askerAddress
-                    ? <p>review permission granted</p>
-                    : <p>review permisssion denied</p>}
-                </div>
-                <div className="Individual-Answer-Time">
-                    Time Submitted: {epochToDate(answer.timestamp.toNumber())}
-                </div>
-
-            </div>
-        );
-
-        return (
-            <div>{answers}</div>
-        )
     }
 
     handleSubmitAnswer = (event) => {
@@ -106,20 +85,58 @@ class SingleQuestion extends Component {
         });
     };
 
+    handleAcceptAnswer = (answerID) => {
+        alert("You will release your funds to the answerers address if you accept");
+        this.props.contractInstance.AcceptAnswer(this.props.questionID, answerID, {
+            from: this.props.userAccount
+        }).then(() => {
+            this.setState({hasAcceptedAnswer: true})
+        });
+    };
+
+    renderAllReplies() {
+        let answers = this.state.answers;
+        // for each answer, do this markup
+        answers = answers.map((answer) =>
+            <div className="Individual-Answer-container" key={answer.id}>
+                <hr/>
+                <div className="Individual-Answer-Description">
+                    {answer.answerText.toString()}
+
+                    {this.props.isAsker ?
+                        <button className="Accept-Answer-Button" onClick={() => this.handleAcceptAnswer(answer.id)}>
+                            Accept Answer</button> : null}
+                    <div className="Individual-Answer-Time">
+                        Submitted On: {epochToDate(answer.timestamp.toNumber())}
+                    </div>
+                </div>
+            </div>
+        );
+
+        return (
+            <div className="AnswerList-Container">
+                <div>{answers}</div>
+            </div>
+        )
+    }
+
     render() {
 
         return (
             <div className="SingleQuestion">
                 <h2 className="SingleQuestion-Title">{this.props.questionTitle}</h2>
                 <hr/>
-                <p>{this.props.askerAddress}</p>
+                {/*<p>{this.props.askerAddress}</p>*/}
                 <div className="SingleQuestion-Desc">{this.props.questionDesc}</div>
                 <div className="SingleQuestion-Details">
                     <div className="SingleQuestion-Timestamp">
                         Submitted on: {this.props.questionTimestamp}
                     </div>
                     <div className="SingleQuestion-Bounty">
-                        Bounty: {this.props.questionBounty}
+                        {this.state.hasAcceptedAnswer
+                            ? <p>Bounty already claimed. You may still submit an answer though.</p>
+                            : <p>Bounty: {this.props.questionBounty}</p>}
+
 
                     </div>
                 </div>
@@ -135,10 +152,14 @@ class SingleQuestion extends Component {
 
                 </form>
 
+                <div>{this.state.answerCount === 0
+                    ? <p>Looks empty here. Leave an answer!</p>
+                    : <p>{this.state.answerCount} Answers </p>}
+                </div>
+
                 <div className="Replies-Container">
                     {this.renderAllReplies()}
                 </div>
-
             </div>
 
 

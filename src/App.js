@@ -39,7 +39,8 @@ class App extends Component {
             questionTimestamp: null,
             balance: null,
             myQuestions: [],
-            askerAddress: null
+            askerAddress: null,
+            isAsker: false
 
         };
         this.togglePostComponent = this.togglePostComponent.bind(this);
@@ -124,7 +125,8 @@ class App extends Component {
             showPostComponent: false,
             showQuestionList: true,
             showSingleQuestion: false,
-            showMyQuestions: false
+            showMyQuestions: false,
+            isAsker: false
         });
     }
 
@@ -133,12 +135,13 @@ class App extends Component {
             showPostComponent: false,
             showQuestionList: false,
             showSingleQuestion: false,
-            showMyQuestions: true
+            showMyQuestions: true,
+            isAsker: true
         });
     }
 
 
-    toggleSingleQuestionComponent = (questionID, questionTitle, questionDesc, questionBounty, questionTimestamp, askerAddress) => {
+    toggleSingleQuestionComponent = (questionID, questionTitle, questionDesc, questionBounty, questionTimestamp, askerAddress, isAsker) => {
         this.setState({showPostComponent: false, showQuestionList: false, showSingleQuestion: true});
         this.setState({
             questionID: questionID,
@@ -146,10 +149,9 @@ class App extends Component {
             questionDesc: questionDesc,
             questionBounty: questionBounty,
             questionTimestamp: questionTimestamp,
-            askerAddress: askerAddress
+            askerAddress: askerAddress,
+            isAsker: isAsker
         });
-
-
     };
 
     passBackMyQuestions = (myQuestions) => {
@@ -194,12 +196,15 @@ class App extends Component {
                                 questionBounty={this.state.questionBounty}
                                 questionTimestamp={this.state.questionTimestamp}
                                 askerAddress={this.state.askerAddress}
+                                isAsker={this.state.isAsker}
                             />
                             :
                             this.state.showMyQuestions
                                 ? <MyQuestions
                                     myQuestions={this.state.myQuestions}
                                     toggleSingleQuestion={this.toggleSingleQuestionComponent}
+                                    userAccount={this.state.account}
+
 
                                 />
 
