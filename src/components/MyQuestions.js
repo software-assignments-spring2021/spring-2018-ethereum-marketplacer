@@ -52,12 +52,13 @@ class MyQuestions extends Component {
         return (
             <div className="QuestionList-container">
                 <div>{questions}</div>
-            </div>        )
+            </div>
+        )
     }
 
 
     toggleSingleQuestionComponent = (questionID, questionTitle, questionDesc, questionBounty, questionTimestamp) => {
-        this.props.toggleSingleQuestion(questionID, questionTitle, questionDesc, this.gweiToEth(questionBounty), this.epochToDate(questionTimestamp), true);
+        this.props.toggleSingleQuestion(questionID, questionTitle, questionDesc, this.gweiToEth(questionBounty), this.epochToDate(questionTimestamp), this.props.userAccount, true);
     };
 
 

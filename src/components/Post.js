@@ -16,8 +16,6 @@ export const savePostOnIpfs = (blob, ipfs) => {
     })
 };
 
-const options = ['one', 'two', 'three']
-
 class Post extends Component {
 
 
@@ -95,7 +93,7 @@ class Post extends Component {
 
 
     checkValidBounty(value) {
-        var reg = /^[0-9]*\.?[0-9]*$/;
+        let reg = /^[0-9]*\.?[0-9]*$/;
         if (value.match(reg) || value === "") {
             this.setState({invalidBountyInput: false});
             if (value > this.props.balance) {

@@ -5,32 +5,20 @@
     padding: 10px;
     /*max-width: 600px;*/
     width: 85%;
-
     margin: 0 auto;
     position: relative;
-
 }
 
 .SingleQuestion-Title {
     text-align: left;
     /*padding-top: 5px;*/
     /*padding-bottom: 5px;*/
-
-
 }
 
 .SingleQuestion-Details {
     text-align: right;
     font-size: 12px;
     color: slategray;
-}
-
-.SingleQuestion-Timestamp {
-
-}
-
-.SingleQuestion-Bounty {
-
 }
 
 .SingleQuestion-Desc {
@@ -67,13 +55,26 @@
     overflow: hidden;
 }
 
-.Individual-Answer-container {
-    color: slategray;
-    /*border-style: solid;*/
-    padding-bottom: 5px;
-    /*margin-top: 10px;*/
-    /*margin-bottom: 10px;*/
+.AnswerList-Container {
+    position: static;
+    display: block;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding-top: 20px;
+    width: 100%;
+    margin: 0 auto;
 
+}
+
+.Replies-Container {
+}
+
+.Individual-Answer-container {
+    position: relative;
+    color: black;
+    padding-bottom: 5px;
+    min-height: 50px;
+    width: 100%
 }
 
 .Individual-Answer-Title {
@@ -84,15 +85,39 @@
 }
 
 .Individual-Answer-Description {
-    font-size: 20px;
     text-align: left;
-    width: 80%;
+    padding-left: 30px;
+    padding-right: 30px;
 
 }
 
 .Individual-Answer-Time {
-    text-align: left;
-    /*display: inline;*/
-    /*align: left;*/
+    text-align: right;
+    font-size: 12px;
+    color: slategray;
+    bottom: 0;
+    padding-top: 25px;
+}
+
+.Accept-Answer-Button {
+    text-align: right;
+    float: right;
+    border: 1px solid #a6a6a6;
+    border-radius: 2px;
+    height:25px;
 
 }
+
+.Accept-Answer-Button:hover {
+    background-color: rgba(110, 249, 131, 0.98);
+    text-align: right;
+    float: right;
+    border: 1px solid #a6a6a6;
+    border-radius: 2px;
+    height:25px;
+
+}
+
+/*.Accept-Button-Container {*/
+/*text-align: right;*/
+/*}*/
