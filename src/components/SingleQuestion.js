@@ -12,12 +12,18 @@ class SingleQuestion extends Component {
             answers: [],
             isAsker: false,
             answerCount: 0,
-            hasAcceptedAnswer: false
+            hasAcceptedAnswer: false,
+            acceptedAnswerID: null,
         };
 
     }
 
     componentDidMount() {
+        this.getAllReplies()
+
+    }
+
+    getAllReplies() {
         console.log("---------------");
         console.log("isAsker:" + this.props.isAsker);
         let answers = this.state.answers;
@@ -36,9 +42,14 @@ class SingleQuestion extends Component {
                     answerHash = answerInfo[0];
                     timestamp = answerInfo[1];
                     isAccepted = answerInfo[2];
-                    // console.log("answerHash: " + answerHash);
-                    // console.log("timestamp: " + timestamp);
-                    // console.log("isAccepted: " + isAccepted);
+                    console.log("answerHash: " + answerHash);
+                    console.log("timestamp: " + timestamp);
+                    console.log("isAccepted: " + isAccepted);
+
+                    if (isAccepted) {
+                        this.setState({hasAcceptedAnswer: true});
+                        this.setState({acceptedAnswerID: answerHash});
+                    }
                 }).then(() => {
                     this.props.ipfs.cat(answerHash, (err, file) => {
                         if (err) {
@@ -59,6 +70,7 @@ class SingleQuestion extends Component {
                 });
             }
         });
+
     }
 
     handleSubmitAnswer = (event) => {
@@ -75,7 +87,6 @@ class SingleQuestion extends Component {
             console.log("Answer hash: " + hash);
             return hash;
         }).then((hash) => {
-
             return this.props.contractInstance.submitAnswer(this.props.questionID, hash, {
                 from: this.props.userAccount
             });
@@ -90,7 +101,12 @@ class SingleQuestion extends Component {
         this.props.contractInstance.AcceptAnswer(this.props.questionID, answerID, {
             from: this.props.userAccount
         }).then(() => {
-            this.setState({hasAcceptedAnswer: true})
+            // this.setState({hasAcceptedAnswer: true});
+            // this.setState({acceptedAnswerID: answerID});
+            this.setState({answers: []});
+            this.setState({answerCount: 0});
+            this.getAllReplies();
+            this.renderAllReplies()
         });
     };
 
@@ -103,9 +119,21 @@ class SingleQuestion extends Component {
                 <div className="Individual-Answer-Description">
                     {answer.answerText.toString()}
 
-                    {this.props.isAsker ?
-                        <button className="Accept-Answer-Button" onClick={() => this.handleAcceptAnswer(answer.id)}>
-                            Accept Answer</button> : null}
+                    {this.state.hasAcceptedAnswer //
+                        ? null // if there is already an accepted answer don't render accept answer button
+                        : <div>{this.props.isAsker // if there isn't already an accepted answer, check if the user is the asker
+                            ? // if user is the asker, render accept answer button
+                            <button className="Accept-Answer-Button" onClick={() => this.handleAcceptAnswer(answer.id)}>
+                                Accept Answer</button>
+                            : null // if user is not asker, don't render anything
+                        }
+                        </div>}
+
+                    <div className="Accepted-Answer-Banner">
+                        {answer.isAccepted ? <div> ~~ This is the accepted answer ~~ </div>
+                            : null}
+                    </div>
+
                     <div className="Individual-Answer-Time">
                         Submitted On: {epochToDate(answer.timestamp.toNumber())}
                     </div>
