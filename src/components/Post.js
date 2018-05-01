@@ -94,11 +94,6 @@ class Post extends Component {
     };
 
 
-<<<<<<< HEAD
-    checkValidBounty(value) {
-        let reg = /^[0-9]*\.?[0-9]*$/;
-=======
-
 
     checkValidBounty(value) {
         var reg = /^[0-9]*\.?[0-9]*$/;
@@ -162,14 +157,13 @@ class Post extends Component {
                            onChange={this.handleUserInput} type="text" title="Title"
                            placeholder="What's your question? Be specific. "/>
                     {this.state.invalidTitleInput ?
-<<<<<<< HEAD
 
                         <p className="invalidInputMessage">Title is required</p> :
                         null}
-=======
+
                         <p className="invalidInputMessage">Title is required</p> :
                             null}
->>>>>>> 0a8f9534a7e8ddc3c9f1313405e037abecd10ab7
+
                     <label> Text (Optional) </label>
                     <textarea type="text"
                               title="content"
@@ -178,18 +172,7 @@ class Post extends Component {
                     <label> Bounty (optional) </label>
 
                     <p className="bountyInput">
-
-<<<<<<< HEAD
-                        <input value={this.state.bountyInput}
-                               onChange={this.handleUserInput} type="text" title="bountyAmount"
-                               placeholder="Attach a bounty to incentivize your question to be answered."/>
-                        {this.state.invalidBountyInput ?
-                            <p className="invalidInputMessage">Bounty input must be a number</p> :
-                            null}
-                        {this.state.invalidBountyAmount ?
-                            <p className="invalidInputMessage">Not enough in Metamask account</p> : null}
-                        <br/>
-=======
+                        
                     <input value={this.state.bountyInput}
                            onChange={this.handleUserInput} type="text" title="bountyAmount"
                            placeholder="Attach a bounty to incentivize your question to be answered."/>
@@ -199,7 +182,7 @@ class Post extends Component {
                     {this.state.invalidBountyAmount ?
                         <p className="invalidInputMessage">Not enough in Metamask account</p> : null}
                     <br/>
->>>>>>> 0a8f9534a7e8ddc3c9f1313405e037abecd10ab7
+
                     </p>
 
                     {this.state.invalidBountyInput || this.state.invalidBountyAmount || this.state.invalidTitleInput || this.state.titleInput === ""
