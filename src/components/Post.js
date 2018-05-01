@@ -146,29 +146,30 @@ class Post extends Component {
     renderPostQuestionForm() {
         return (
             <div className="Post-form-container">
-                <h2> Post a new question</h2>
+                <h1> Post a Question!</h1>
 
                 <form className="Post-form" onSubmit={this.handleSubmit}>
-                    <label> Title </label>
+                    <h3> Question Title </h3>
                     <input val={this.state.titleInput}
                            onChange={this.handleUserInput} type="text" title="Title"
-                           placeholder="What's your question? Be specific. "/>
+                           placeholder="What's your question? (ie: What is x + 2 = 4?) "/>
                     {this.state.invalidTitleInput ?
 
                         <p className="invalidInputMessage">Title is required</p> :
                         null}
-                    <label> Text (Optional) </label>
-                    <textarea type="text"
-                              title="content"
-                              placeholder="Provide all the necessary details for someone to answer."></textarea><br/>
+                    <h3> Text (optional) </h3>
+                    <input type="text"
+                              title="Title"
+                              placeholder="Provide any relevant information so that solvers can better answer your question! "/>
 
-                    <label> Bounty (optional) </label>
+                    
 
                     <p className="bountyInput">
+                        <h3> Bounty (optional) </h3>
 
                         <input value={this.state.bountyInput}
-                               onChange={this.handleUserInput} type="text" title="bountyAmount"
-                               placeholder="Attach a bounty to incentivize your question to be answered."/>
+                               onChange={this.handleUserInput} type="text" title="Title"
+                               placeholder="Attach a bounty to incentivize people to submit answers to your question."/>
                         {this.state.invalidBountyInput ?
                             <p className="invalidInputMessage">Bounty input must be a number</p> :
                             null}
