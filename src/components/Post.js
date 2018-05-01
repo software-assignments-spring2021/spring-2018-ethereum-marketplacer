@@ -157,13 +157,6 @@ class Post extends Component {
 
                         <p className="invalidInputMessage">Title is required</p> :
                         null}
-                    <h3> Text (optional) </h3>
-                    <input type="text"
-                              title="Title"
-                              placeholder="Provide any relevant information so that solvers can better answer your question! "/>
-
-                    
-
                     <p className="bountyInput">
                         <h3> Bounty (optional) </h3>
 
@@ -177,6 +170,14 @@ class Post extends Component {
                             <p className="invalidInputMessage">Not enough in Metamask account</p> : null}
                         <br/>
                     </p>
+                    <h3> Text (optional) </h3>
+                    <input type="content"
+                              title="Title"
+                              placeholder="Provide any relevant information so that solvers can better answer your question! "/>
+
+                    
+
+                    
 
                     {this.state.invalidBountyInput || this.state.invalidBountyAmount || this.state.invalidTitleInput || this.state.titleInput === ""
                         ? <button disabled={true}>Submit Question</button>
