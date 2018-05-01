@@ -16,6 +16,8 @@ export const savePostOnIpfs = (blob, ipfs) => {
     })
 };
 
+const options=['one','two','three']
+
 class Post extends Component {
 
 
@@ -92,9 +94,10 @@ class Post extends Component {
     };
 
 
+
     checkValidBounty(value) {
-        let reg = /^[0-9]*\.?[0-9]*$/;
-        if (value.match(reg) || value === "") {
+        var reg = /^[0-9]*\.?[0-9]*$/;
+        if (String (value).match(reg) || value === "") {
             this.setState({invalidBountyInput: false});
             if (value > this.props.balance) {
                 this.setState({invalidBountyAmount: true});
@@ -124,7 +127,7 @@ class Post extends Component {
         let value = e.target.value;
 
         if (e.target.title === "bountyAmount") {
-            value = value || 0;
+            value = value;
             console.log("value is: " + value);
             this.setState({bountyInput: value},
 
@@ -157,6 +160,10 @@ class Post extends Component {
 
                         <p className="invalidInputMessage">Title is required</p> :
                         null}
+
+                        <p className="invalidInputMessage">Title is required</p> :
+                            null}
+
                     <label> Text (Optional) </label>
                     <textarea type="text"
                               title="content"
@@ -165,16 +172,17 @@ class Post extends Component {
                     <label> Bounty (optional) </label>
 
                     <p className="bountyInput">
+                        
+                    <input value={this.state.bountyInput}
+                           onChange={this.handleUserInput} type="text" title="bountyAmount"
+                           placeholder="Attach a bounty to incentivize your question to be answered."/>
+                    {this.state.invalidBountyInput ?
+                        <p className="invalidInputMessage">Bounty input must be a number</p> :
+                        null}
+                    {this.state.invalidBountyAmount ?
+                        <p className="invalidInputMessage">Not enough in Metamask account</p> : null}
+                    <br/>
 
-                        <input value={this.state.bountyInput}
-                               onChange={this.handleUserInput} type="text" title="bountyAmount"
-                               placeholder="Attach a bounty to incentivize your question to be answered."/>
-                        {this.state.invalidBountyInput ?
-                            <p className="invalidInputMessage">Bounty input must be a number</p> :
-                            null}
-                        {this.state.invalidBountyAmount ?
-                            <p className="invalidInputMessage">Not enough in Metamask account</p> : null}
-                        <br/>
                     </p>
 
                     {this.state.invalidBountyInput || this.state.invalidBountyAmount || this.state.invalidTitleInput || this.state.titleInput === ""

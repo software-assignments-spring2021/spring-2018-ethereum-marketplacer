@@ -15,9 +15,6 @@ contract QuestionAnswerTest {
 
     }
 
-
-
-
     //test whether the function works
     function testQuestionSubmit(){
         bool success = qanda.submitQuestion("luls");
@@ -69,10 +66,10 @@ contract QuestionAnswerTest {
     }
 
     //gets question count
-
     function getQuestionCount(){
         uint expected = 1;
         uint returned = qanda.getQuestionCount();
         Assert.equal(expected, returned, "Should have returned 1 question");
+
     }
 }
