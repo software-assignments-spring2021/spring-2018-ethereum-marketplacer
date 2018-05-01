@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {View} from 'react-native';
 import Post from './components/Post.js'
 import QuestionList from './components/QuestionList.js'
 import './css/App.css'
@@ -7,6 +8,15 @@ import getWeb3 from './utils/getWeb3'
 import QuestionAnswerContract from '../build/contracts/QuestionAnswer.json'
 import SingleQuestion from "./components/SingleQuestion";
 import MyQuestions from "./components/MyQuestions";
+
+//import SearchBar from 'react-native-search-bar';
+//import { StackNavigator } from 'react-navigation'; // 1.0.0-beta.13
+
+import FaGroup from 'react-icons/lib/fa/group';
+import MdAccountCircle from 'react-icons/lib/md/account-circle'
+import MdIconPack from 'react-icons/lib/md'
+import IoAndroidCreate from 'react-icons/lib/io/android-create'
+import Search from 'react-search-box';
 
 const contract = require('truffle-contract');
 const QuestionAnswer = contract(QuestionAnswerContract);
@@ -164,13 +174,13 @@ class App extends Component {
         return (
             <div className="App">
                 <header className="App-header">
-                    <h1 className="App-title">QuestionAnswer.</h1>
-                    <button onClick={this.togglePostComponent} className="Post-button">Post Question</button>
-                    <button onClick={this.toggleQuestionListComponent} className="Browse-button">Browse Questions
+                    <h1 className="App-title">Q&A</h1>
+                    <button onClick={this.togglePostComponent} className="Post-button"> <IoAndroidCreate size={40}/> Post Question</button>
+                    <button onClick={this.toggleQuestionListComponent} className="Browse-button"> <FaGroup size={40}/>  Browse Questions
                     </button>
-                    <button onClick={this.toggleMyQuestionsComponent} className="My-Questions-button">My Submitted
-                        Questions
+                    <button onClick={this.toggleMyQuestionsComponent} className="My-Questions-button"> <MdAccountCircle size={40}/> My Activity 
                     </button>
+      
                 </header>
 
                 <div className="Main-panel">
@@ -220,6 +230,8 @@ class App extends Component {
             </div>
         )
     }
+
+
 }
 
 export default App;
