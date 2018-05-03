@@ -157,12 +157,8 @@ class Post extends Component {
                            onChange={this.handleUserInput} type="text" title="Title"
                            placeholder="What's your question? Be specific. "/>
                     {this.state.invalidTitleInput ?
-
-                        <p className="invalidInputMessage">Title is required</p> :
-                        null}
-
-                        <p className="invalidInputMessage">Title is required</p> :
-                            null}
+                        <p className="invalidInputMessage">Title is required</p>
+                        : null}
 
                     <label> Text (Optional) </label>
                     <textarea type="text"

@@ -175,12 +175,18 @@ class App extends Component {
             <div className="App">
                 <header className="App-header">
                     <h1 className="App-title">Q&A</h1>
-                    <button onClick={this.togglePostComponent} className="Post-button"> <IoAndroidCreate size={40}/> Post Question</button>
-                    <button onClick={this.toggleQuestionListComponent} className="Browse-button"> <FaGroup size={40}/>  Browse Questions
+
+                    <p className="Address-container"> Current address: {this.state.account} </p>
+                    <button onClick={this.togglePostComponent} className="Post-button"><IoAndroidCreate size={40}/> Post
+                        Question
                     </button>
-                    <button onClick={this.toggleMyQuestionsComponent} className="My-Questions-button"> <MdAccountCircle size={40}/> My Activity 
+                    <button onClick={this.toggleQuestionListComponent} className="Browse-button"><FaGroup size={40}/>
+                        Browse Questions
                     </button>
-      
+                    <button onClick={this.toggleMyQuestionsComponent} className="My-Questions-button"><MdAccountCircle
+                        size={40}/> My Activity
+                    </button>
+
                 </header>
 
                 <div className="Main-panel">

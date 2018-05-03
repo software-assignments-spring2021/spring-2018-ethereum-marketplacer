@@ -22,13 +22,14 @@ class QuestionList extends Component {
             questions: [],
             showSingleQuestion: false,
             myQuestions: []
-
         };
 
     }
 
     componentDidMount() {
         this.props.contractInstance.getQuestionCount.call().then((count) => {
+
+            this.setState({count: count});
 
             for (let i = 0; i < count; i++) {
 
@@ -148,10 +149,8 @@ class QuestionList extends Component {
 
         return (
             <div className="QuestionList">
-                {this.renderQuestionList()}
-
+                {this.state.count !== null ? this.renderQuestionList() : <p> Looks empty here, ask a question! </p>}
             </div>
-
         );
 
 

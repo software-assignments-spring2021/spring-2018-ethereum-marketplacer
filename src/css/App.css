@@ -19,9 +19,15 @@
 
 }
 
+.Address-container {
+    position: absolute;
+    font-size: 15px;
+    padding-left: 100px;
+    padding-top: 15px;
+}
+
 .Post-button {
     position: static;
-    padding: 0;
     border: none;
     background: transparent;
     color: white;
@@ -37,7 +43,6 @@
 
 .Browse-button {
     position: static;
-    padding: 0;
     border: none;
     background: transparent;
     top: 10px;
@@ -54,7 +59,6 @@
 
 .My-Questions-button {
     position: static;
-    padding: 0;
     border: none;
     background: none;
     color: white;
